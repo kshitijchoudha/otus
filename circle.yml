@@ -8,3 +8,8 @@ dependencies:
 general:
   artifacts:
     - "otus-ui/target/otus-ui-1.0-SNAPSHOT.jar"
+deployment:
+  prod:
+    branch: master
+    commands:
+      - aws s3 cp otus-ui/target/otus-ui-1.0-SNAPSHOT.jar s3://otus-201708/lib/otus-ui/
