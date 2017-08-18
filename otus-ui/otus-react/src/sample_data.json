@@ -1,0 +1,253 @@
+{
+  "renderer": "global",
+  "name": "edge",
+  "nodes": [
+    {
+      "renderer": "region",
+      "name": "INTERNET",
+      "class": "normal"
+    },
+    {
+      "renderer": "region",
+      "name": "us-west-2",
+      "maxVolume": 50000,
+      "class": "normal",
+      "updated": 1466838546805,
+      "nodes": [
+        {
+          "name": "INTERNET",
+          "renderer": "focusedChild",
+          "class": "normal"
+        },
+        {
+          "name": "app-fe",
+          "metadata": {
+            "streaming": 1
+          },
+          "clusters": [],
+          "renderer": "focusedChild",
+          "class": "normal"
+        },
+        {
+          "name": "otus-fe",
+          "metadata": {
+            "streaming": 1
+          },
+          "clusters": [],
+          "renderer": "focusedChild",
+          "class": "normal"
+        },
+        {
+          "name": "discovery",
+          "metadata": {
+            "streaming": 1
+          },
+          "clusters": [],
+          "renderer": "focusedChild",
+          "class": "normal"
+        },
+        {
+          "name": "otus-aggregator",
+          "metadata": {
+            "streaming": 1
+          },
+          "clusters": [],
+          "renderer": "focusedChild",
+          "class": "normal"
+        },
+        {
+          "name": "app-service-a",
+          "metadata": {
+            "streaming": 1
+          },
+          "clusters": [],
+          "renderer": "focusedChild",
+          "class": "normal"
+        },
+        {
+          "name": "app-service-b",
+          "metadata": {
+            "streaming": 1
+          },
+          "clusters": [],
+          "renderer": "focusedChild",
+          "class": "normal"
+        },
+        {
+          "name": "app-service-c",
+          "metadata": {
+            "streaming": 1
+          },
+          "clusters": [],
+          "renderer": "focusedChild",
+          "class": "normal"
+        },
+        {
+          "name": "app-service-d",
+          "metadata": {
+            "streaming": 1
+          },
+          "clusters": [],
+          "renderer": "focusedChild",
+          "class": "normal"
+        },
+        {
+          "name": "app-service-e",
+          "metadata": {
+            "streaming": 1
+          },
+          "clusters": [],
+          "renderer": "focusedChild",
+          "class": "normal"
+        },
+        {
+          "name": "app-service-f",
+          "metadata": {
+            "streaming": 1
+          },
+          "clusters": [],
+          "renderer": "focusedChild",
+          "class": "normal"
+        },
+        {
+          "name": "app-service-g",
+          "metadata": {
+            "streaming": 1
+          },
+          "clusters": [],
+          "renderer": "focusedChild",
+          "class": "normal"
+        }
+      ],
+      "connections": [
+        {
+          "source": "INTERNET",
+          "target": "app-fe",
+          "metrics": {
+            "danger": 11.524,
+            "normal": 158.906
+          },
+          "class": "normal"
+        },
+        {
+          "source": "INTERNET",
+          "target": "otus-fe",
+          "metrics": {
+            "danger": 18.524,
+            "normal": 558.906
+          },
+          "class": "normal"
+        },
+        {
+          "source": "otus-fe",
+          "target": "otus-aggregator",
+          "metrics": {
+            "danger": 9.524,
+            "normal": 155.906
+          },
+          "class": "normal"
+        },
+        {
+          "source": "otus-fe",
+          "target": "discovery",
+          "metrics": {
+            "normal": 159.906
+          },
+          "class": "normal"
+        },
+        {
+          "source": "app-fe",
+          "target": "discovery",
+          "metrics": {
+            "normal": 19.906
+          },
+          "class": "normal"
+        },
+        {
+          "source": "discovery",
+          "target": "app-fe",
+          "metrics": {
+            "normal": 19.906
+          },
+          "class": "normal"
+        },
+        {
+          "source": "app-fe",
+          "target": "app-service-a",
+          "metrics": {
+            "danger": 16.524,
+            "normal": 198.906
+          },
+          "class": "normal"
+        },
+        {
+          "source": "app-fe",
+          "target": "app-service-b",
+          "metrics": {
+            "danger": 16.524,
+            "normal": 598.906
+          },
+          "class": "normal"
+        },
+        {
+          "source": "app-fe",
+          "target": "app-service-c",
+          "metrics": {
+            "danger": 16.524,
+            "normal": 59.906
+          },
+          "class": "normal"
+        },
+        {
+          "source": "app-service-a",
+          "target": "app-service-d",
+          "metrics": {
+            "danger": 16.524,
+            "normal": 158.906
+          },
+          "class": "normal"
+        },
+        {
+          "source": "app-service-b",
+          "target": "app-service-e",
+          "metrics": {
+            "danger": 16.524,
+            "normal": 158.906
+          },
+          "class": "normal"
+        },
+        {
+          "source": "app-service-b",
+          "target": "app-service-f",
+          "metrics": {
+            "danger": 16.524,
+            "normal": 159.906
+          },
+          "class": "normal"
+        },
+        {
+          "source": "app-service-f",
+          "target": "app-service-g",
+          "metrics": {
+            "danger": 16.524,
+            "normal": 158.906
+          },
+          "class": "normal"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "source": "INTERNET",
+      "target": "us-west-2",
+      "metrics": {
+        "normal": 26037.626,
+        "danger": 92.37
+      },
+      "notices": [
+      ],
+      "class": "normal"
+    }
+  ]
+}
