@@ -1,0 +1,9 @@
+machine:
+  node:
+    version: 6.9.0
+dependencies:
+  pre:
+    - npm install @angular/cli@latest -g
+    - ./buildui.sh
+general:
+  artifacts:
