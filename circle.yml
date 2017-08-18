@@ -7,4 +7,4 @@ dependencies:
     - ./buildui.sh
 general:
   artifacts:
-    - "ui/target/otus-ui-1.0-SNAPSHOT.jar"
+    - "otus-ui/target/otus-ui-1.0-SNAPSHOT.jar"
