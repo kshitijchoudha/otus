@@ -2,11 +2,8 @@ machine:
   node:
     version: 6.9.0
 dependencies:
-  override:
-    - npm install
-    - npm install webpack -g
-    - webpack
   pre:
+    - npm install webpack -g
     - ./buildui.sh
 general:
   artifacts:
