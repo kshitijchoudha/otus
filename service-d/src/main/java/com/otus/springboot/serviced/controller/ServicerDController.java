@@ -9,7 +9,7 @@ public class ServicerDController {
 	
 	@RequestMapping("/greeting")
     public String greeting() {
-        return "Madhu";
+        return "OTUS-D";
     }
 
 }
