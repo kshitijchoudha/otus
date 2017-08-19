@@ -27,12 +27,12 @@ public class AmazonS3ClientUtil {
 	private static String key        = "foo.txt";    
 	
 	
-	public static void main(String ... args) throws IOException {
-		AmazonS3ClientUtil util = new AmazonS3ClientUtil();
-		//util.createBucket();
-		util.readObjectFromS3();
-		//util.deleteFolder();
-	}
+//	public static void main(String ... args) throws IOException {
+//		AmazonS3ClientUtil util = new AmazonS3ClientUtil();
+//		//util.createBucket();
+//		util.readObjectFromS3();
+//		//util.deleteFolder();
+//	}
 	
 	
 	private void createBucket() {
