@@ -21,6 +21,12 @@
         },
         {
           "name": "app-fe",
+          "service-details": {
+            "instanceId": 1,
+            "ipAddress": "10.0.0.1",
+            "port": 12345,
+            "status": "UP"
+          },
           "metadata": {
             "streaming": 1
           },
@@ -30,6 +36,12 @@
         },
         {
           "name": "otus-fe",
+          "service-details": {
+            "instanceId": 2,
+            "ipAddress": "10.0.0.2",
+            "port": 23456,
+            "status": "UP"
+          },
           "metadata": {
             "streaming": 1
           },
@@ -39,6 +51,12 @@
         },
         {
           "name": "discovery",
+          "service-details": {
+            "instanceId": 3,
+            "ipAddress": "10.0.0.3",
+            "port": 34567,
+            "status": "UP"
+          },
           "metadata": {
             "streaming": 1
           },
@@ -48,6 +66,12 @@
         },
         {
           "name": "otus-aggregator",
+          "service-details": {
+            "instanceId": 4,
+            "ipAddress": "10.0.0.4",
+            "port": 45678,
+            "status": "UP"
+          },
           "metadata": {
             "streaming": 1
           },
@@ -57,6 +81,12 @@
         },
         {
           "name": "app-service-a",
+          "service-details": {
+            "instanceId": 5,
+            "ipAddress": "10.0.0.5",
+            "port": 56789,
+            "status": "UP"
+          },
           "metadata": {
             "streaming": 1
           },
@@ -66,6 +96,12 @@
         },
         {
           "name": "app-service-b",
+          "service-details": {
+            "instanceId": 6,
+            "ipAddress": "10.0.0.6",
+            "port": 67890,
+            "status": "UP"
+          },
           "metadata": {
             "streaming": 1
           },
@@ -75,6 +111,12 @@
         },
         {
           "name": "app-service-c",
+          "service-details": {
+            "instanceId": 7,
+            "ipAddress": "10.0.0.7",
+            "port": 78901,
+            "status": "UP"
+          },
           "metadata": {
             "streaming": 1
           },
@@ -84,6 +126,12 @@
         },
         {
           "name": "app-service-d",
+          "service-details": {
+            "instanceId": 8,
+            "ipAddress": "10.0.0.8",
+            "port": 89012,
+            "status": "UP"
+          },
           "metadata": {
             "streaming": 1
           },
@@ -93,6 +141,12 @@
         },
         {
           "name": "app-service-e",
+          "service-details": {
+            "instanceId": 9,
+            "ipAddress": "10.0.0.9",
+            "port": 90123,
+            "status": "UP"
+          },
           "metadata": {
             "streaming": 1
           },
@@ -102,6 +156,12 @@
         },
         {
           "name": "app-service-f",
+          "service-details": {
+            "instanceId": 10,
+            "ipAddress": "10.0.0.10",
+            "port": 10123,
+            "status": "UP"
+          },
           "metadata": {
             "streaming": 1
           },
@@ -111,6 +171,12 @@
         },
         {
           "name": "app-service-g",
+          "service-details": {
+            "instanceId": 11,
+            "ipAddress": "10.0.0.11",
+            "port": 20123,
+            "status": "UP"
+          },
           "metadata": {
             "streaming": 1
           },
