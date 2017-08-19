@@ -8,8 +8,20 @@ dependencies:
 general:
   artifacts:
     - "otus-ui/target/otus-ui-1.0-SNAPSHOT.jar"
+    - "service-a/target/service-a-1.0-SNAPSHOT.jar"
+    - "service-b/target/service-b-1.0-SNAPSHOT.jar"
+    - "service-c/target/service-c-1.0-SNAPSHOT.jar"
+    - "service-d/target/service-d-1.0-SNAPSHOT.jar"
+    - "service-aggregate/target/service-aggregate-1.0-SNAPSHOT.jar"
+    - "service-discovery/target/service-discovery-1.0-SNAPSHOT.jar"
 deployment:
   prod:
     branch: master
     commands:
       - aws s3 cp otus-ui/target/otus-ui-1.0-SNAPSHOT.jar s3://otus-201708/lib/otus-ui/
+      - aws s3 cp service-a/target/service-a-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-a/
+      - aws s3 cp service-b/target/service-b-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-b/
+      - aws s3 cp service-c/target/service-c-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-c/
+      - aws s3 cp service-d/target/service-d-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-d/
+      - aws s3 cp service-aggregate/target/service-aggregate-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-aggregate/
+      - aws s3 cp service-discovery/target/service-discovery-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-discovery/
