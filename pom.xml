@@ -18,5 +18,8 @@
     <modules>
         <module>otus-ui</module>
         <module>service-discovery</module>
+        <module>service-aggregate</module>
+        <module>service-a</module>
+        <module>service-b</module>
     </modules>
 </project>
