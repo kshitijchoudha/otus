@@ -2,8 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.otus.serviceg</groupId>
   <artifactId>service-g</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
+<!--   <version>0.0.1-SNAPSHOT</version>
+ -->  
   <parent>
       	<groupId>com.otus.parent</groupId>
 		<artifactId>otus</artifactId>
