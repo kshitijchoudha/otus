@@ -22,6 +22,14 @@
         <module>service-a</module>
         <module>service-b</module>
         <module>service-c</module>
-        <module>service-d</module>
+        <module>service-d</module>        
+        <module>service-e</module>
+        <module>service-f</module>
+        <module>service-g</module>
+        <module>service-h</module>        
+        <module>service-i</module>
+       <!--  <module>service-j</module>
+        <module>service-k</module>
+        <module>service-l</module> -->
     </modules>
 </project>
