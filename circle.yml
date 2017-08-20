@@ -8,20 +8,30 @@ dependencies:
 general:
   artifacts:
     - "otus-ui/target/otus-ui-1.0-SNAPSHOT.jar"
-    - "service-a/target/service-a-0.0.1-SNAPSHOT.jar"
-    - "service-b/target/service-b-0.0.1-SNAPSHOT.jar"
-    - "service-c/target/service-c-0.0.1-SNAPSHOT.jar"
-    - "service-d/target/service-d-0.0.1-SNAPSHOT.jar"
-    - "service-aggregate/target/service-aggregate-0.0.1-SNAPSHOT.jar"
+    - "service-a/target/service-a-1.0-SNAPSHOT.jar"
+    - "service-b/target/service-b-1.0-SNAPSHOT.jar"
+    - "service-c/target/service-c-1.0-SNAPSHOT.jar"
+    - "service-d/target/service-d-1.0-SNAPSHOT.jar"
+    - "service-e/target/service-e-1.0-SNAPSHOT.jar"
+    - "service-f/target/service-f-1.0-SNAPSHOT.jar"
+    - "service-g/target/service-g-1.0-SNAPSHOT.jar"
+    - "service-h/target/service-h-1.0-SNAPSHOT.jar"
+    - "service-i/target/service-i-1.0-SNAPSHOT.jar"
+    - "service-aggregate/target/service-aggregate-1.0-SNAPSHOT.jar"
     - "service-discovery/target/service-discovery-0.0.1-SNAPSHOT.jar"
 deployment:
   prod:
     branch: master
     commands:
       - aws s3 cp otus-ui/target/otus-ui-1.0-SNAPSHOT.jar s3://otus-201708/lib/otus-ui/
-      - aws s3 cp service-a/target/service-a-0.0.1-SNAPSHOT.jar s3://otus-201708/lib/service-a/
-      - aws s3 cp service-b/target/service-b-0.0.1-SNAPSHOT.jar s3://otus-201708/lib/service-b/
-      - aws s3 cp service-c/target/service-c-0.0.1-SNAPSHOT.jar s3://otus-201708/lib/service-c/
-      - aws s3 cp service-d/target/service-d-0.0.1-SNAPSHOT.jar s3://otus-201708/lib/service-d/
-      - aws s3 cp service-aggregate/target/service-aggregate-0.0.1-SNAPSHOT.jar s3://otus-201708/lib/service-aggregate/
+      - aws s3 cp service-a/target/service-a-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-a/
+      - aws s3 cp service-b/target/service-b-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-b/
+      - aws s3 cp service-c/target/service-c-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-c/
+      - aws s3 cp service-d/target/service-d-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-d/      
+      - aws s3 cp service-e/target/service-e-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-e/
+      - aws s3 cp service-f/target/service-f-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-f/
+      - aws s3 cp service-g/target/service-g-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-g/
+      - aws s3 cp service-h/target/service-h-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-h/
+      - aws s3 cp service-i/target/service-i-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-i/      
+      - aws s3 cp service-aggregate/target/service-aggregate-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-aggregate/
       - aws s3 cp service-discovery/target/service-discovery-0.0.1-SNAPSHOT.jar s3://otus-201708/lib/service-discovery/
