@@ -1,6 +1,7 @@
 package com.techexpo.springboot.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -23,7 +24,12 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.techexpo.springboot.model.Response;
+import com.techexpo.springboot.model.ServiceDetails;
 import com.techexpo.springboot.model.ServiceInformation;
+import com.techexpo.springboot.response.AggregateResponse;
+import com.techexpo.springboot.util.AggregateDataUtil;
+import com.techexpo.springboot.util.AmazonS3ClientUtil;
 
 @RestController
 public class ServiceAggregateRestController {
@@ -78,8 +84,11 @@ public class ServiceAggregateRestController {
 		HttpEntity entity = new HttpEntity(headers);
 //		String UNREGISTER_URL = URL + applicationName + "/Kavya.attlocal.net:fm-be:8082/status?value=OUT_OF_SERVICE";
 		
-		String UNREGISTER_URL = URL + applicationName + "/" +  instanceId + "/status?value=OUT_OF_SERVICE";
+//		String UNREGISTER_URL = URL + applicationName + "/" +  instanceId + "/status?value=OUT_OF_SERVICE";
 
+		String UNREGISTER_URL = URL + applicationName + "/" +  instanceId + "/status?value=DOWN";
+
+		
 		ResponseEntity<String> deregisterResp
 		  = new RestTemplate().exchange(UNREGISTER_URL,HttpMethod.PUT, entity, String.class);
 		LOGGER.info("deregisterResp:");
@@ -121,14 +130,54 @@ public class ServiceAggregateRestController {
 		
 	}
 
-	
-	@RequestMapping(value="/instances/", method = RequestMethod.GET)
-    public List<String> getAll() {
+	@RequestMapping(value="/data1/", method = RequestMethod.GET)
+    public List<String> getAllInstances() {
 		LOGGER.info("GetAll method.......");
 		List<String> instances =  this.discoveryClient.getServices();
 		LOGGER.info("instances method......." + instances);
+		List<ServiceInformation> serviceInfos = new ArrayList<ServiceInformation>();
+		for (String jsonString : instances) {
+			serviceInfos.add(getServiceInformation(jsonString));
+		}
+		//get S3 data
+		AmazonS3ClientUtil s3Client = new AmazonS3ClientUtil();
         return instances;
     }
+	
+	@RequestMapping(value="/data/", method = RequestMethod.GET)
+    public AggregateResponse getAll() {
+		LOGGER.info("GetAll method.......");
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity entity = new HttpEntity(headers);
+		String REGISTER_URL = URL;
+		String jsonString = new RestTemplate().getForObject(URL, String.class);
+		
+		Response resp = getServiceInfo(jsonString);
+
+		List<ServiceDetails> serviceDetails = resp.getApplications().getApplication();
+		AggregateResponse response = AggregateDataUtil.createDummyDate(serviceDetails);
+
+//		//get S3 data
+//		AmazonS3ClientUtil s3Client = new AmazonS3ClientUtil();
+        return response;
+    }
+	
+	@RequestMapping(value="/data-dummy/", method = RequestMethod.GET)
+    public AggregateResponse getDummyData() {
+		LOGGER.info("getDummyData method.......");
+//		List<String> instances =  this.discoveryClient.getServices();
+//		LOGGER.info("instances method......." + instances);
+		List<ServiceInformation> serviceInfos = new ArrayList<ServiceInformation>();		HttpHeaders headers = new HttpHeaders();
+		HttpEntity entity = new HttpEntity(headers);
+		String REGISTER_URL = URL;
+		String jsonString = new RestTemplate().getForObject(URL, String.class);
+		Response resp = getServiceInfo(jsonString);
+		List<ServiceDetails> serviceDetails = resp.getApplications().getApplication();
+		AggregateResponse response = AggregateDataUtil.createDummyDate(serviceDetails);
+        return response;
+    }
+	
+	
 	
 	@LoadBalanced
     @Bean
@@ -158,6 +207,28 @@ public class ServiceAggregateRestController {
 			e.printStackTrace();
 		}
 		return serviceInformation;
+	}
+	
+	private Response getServiceInfo(String jsonString) {
+		System.out.println("[getServiceInfo] JSON String:" + jsonString);
+		Response serviceInformation = null;
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			serviceInformation = mapper.readValue(jsonString, Response.class);
+			System.out.println(serviceInformation.toString());
+			LOGGER.info("=====================OBEJCT:==================" + serviceInformation.toString());
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return serviceInformation;
+		
 	}
 	
 }

@@ -1,4 +1,4 @@
-package com.techexpo.springboot.amazon.util;
+package com.techexpo.springboot.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
