@@ -9,6 +9,6 @@ eureka:
   client:
     register-with-eureka: false
     serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
   instance:
     preferIpAddress: true

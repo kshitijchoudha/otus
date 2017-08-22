@@ -1,4 +1,4 @@
-package com.otus.springboot.servicei.application;
+package com.otus.springboot.servicec;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -7,8 +7,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@EnableAutoConfiguration
-@ComponentScan({"com.otus.springboot.servicei.controller"})
 @EnableDiscoveryClient
 public class Application {
 

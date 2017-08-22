@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ServicerEController {
 	
-	@RequestMapping("/greeting")
+	@RequestMapping("/hello")
     public String greeting() {
-        return "OTUS-E";
+        return "[E]";
     }
 
 }
