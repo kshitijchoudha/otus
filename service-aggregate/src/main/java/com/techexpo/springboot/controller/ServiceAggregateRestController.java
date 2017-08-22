@@ -40,7 +40,7 @@ public class ServiceAggregateRestController {
 	@Autowired
     private DiscoveryClient discoveryClient;
 	
-	private static final String URL = "http://localhost:8761/eureka/apps/";
+	private static final String URL = "http://34.193.236.46:8761/eureka/apps/";
 	
 	@RequestMapping("/service-instances/{applicationName}")
     public List<ServiceInstance> serviceInstancesByApplicationName(
