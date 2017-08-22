@@ -22,6 +22,8 @@ public class ServiceNode {
 	
 	private List<AggregateCluster> clusters;
 	
+	private List<ServiceConnection> connections;
+	
 	public String getRenderer() {
 		return renderer;
 	}
@@ -70,14 +72,20 @@ public class ServiceNode {
 	public void setClusters(List<AggregateCluster> clusters) {
 		this.clusters = clusters;
 	}
+	
+	public List<ServiceConnection> getConnections() {
+		return connections;
+	}
+	public void setConnections(List<ServiceConnection> connections) {
+		this.connections = connections;
+	}
 	@Override
 	public String toString() {
 		return "ServiceNode [renderer=" + renderer + ", name=" + name
 				+ ", maxVolume=" + maxVolume + ", className=" + className
 				+ ", nodes=" + nodes + ", serviceDetails=" + serviceDetails
-				+ ", metadata=" + metadata + ", clusters=" + clusters + "]";
+				+ ", metadata=" + metadata + ", clusters=" + clusters
+				+ ", connections=" + connections + "]";
 	}
-	
-	
 	
 }
