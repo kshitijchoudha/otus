@@ -18,7 +18,6 @@ eureka:
   instance:
     preferIpAddress: true
 
-ribbon:
-  eureka:
+feign:
+  hystrix:
     enabled: true
-
