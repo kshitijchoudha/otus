@@ -85,9 +85,9 @@ public class AggregateDataUtil {
 			System.out.println("sourceAppName:" + sourceAppName);
 			System.out.println("destAppName:" + destAppName);
 //			
-//			String key = sourceAppName + "-" + destAppName;
+			String key = sourceAppName + "-" + destAppName;
 			
-			String key = sourceIp + "-" + destIp;
+//			String key = sourceIp + "-" + destIp;
 			
 			if (flowLogMap.keySet().contains(key)) {
 				ServiceConnection serviceConnection = flowLogMap.get(key);
