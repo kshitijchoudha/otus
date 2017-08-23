@@ -184,8 +184,8 @@ class TrafficFlow extends React.Component {
 
   bringServiceUpDown = (name, upOrDown) => {
     const endpointMap = {
-      'UP': 'activate',
-      'DOWN': 'deactivate'
+      UP: 'activate',
+      DOWN: 'deactivate'
     };
 
     const callServiceName = name.toLowerCase();
@@ -345,7 +345,7 @@ class TrafficFlow extends React.Component {
     const nodeView = !globalView && this.state.currentView && this.state.currentView[1] !== undefined;
     let nodeToShowDetails = this.state.currentGraph && this.state.currentGraph.focusedNode;
     nodeToShowDetails = nodeToShowDetails || (this.state.highlightedObject && this.state.highlightedObject.type === 'node' ? this.state.highlightedObject : undefined);
-    let nodeStatus = nodeToShowDetails && nodeToShowDetails['service-details'].status;
+    const nodeStatus = nodeToShowDetails && nodeToShowDetails['service-details'].status;
     const connectionToShowDetails = this.state.highlightedObject && this.state.highlightedObject.type === 'connection' ? this.state.highlightedObject : undefined;
     const showLoadingCover = !this.state.currentGraph;
 

@@ -36,7 +36,6 @@ class DetailsPanelNode extends React.Component {
   render () {
     const node = this.state.node;
     const nodeStatus = this.state.nodeStatus;
-    console.log(nodeStatus);
     const nodeName = node.getName();
     const notices = (node && node.notices) || [];
     let zoomClassName = 'glyphicon clickable zoom-icon ';
@@ -64,9 +63,9 @@ class DetailsPanelNode extends React.Component {
         </DetailsSubpanel>
         <div className="our-buttons">
           { node && nodeStatus.toUpperCase() === 'UP' ?
-            <button className="our-buttons__btn" onClick={e => this.handleReloadClick(nodeName, 'DOWN')}>Bring Down</button>
+            <button className="our-buttons__btn" onClick={() => this.handleReloadClick(nodeName, 'DOWN')}>Bring Down</button>
             :
-            <button className="our-buttons__btn" onClick={e => this.handleReloadClick(nodeName, 'UP')}>Bring Up</button>
+            <button className="our-buttons__btn" onClick={() => this.handleReloadClick(nodeName, 'UP')}>Bring Up</button>
           }
         </div>
       </div>
