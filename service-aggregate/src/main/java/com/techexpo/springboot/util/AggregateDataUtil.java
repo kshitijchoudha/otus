@@ -81,7 +81,7 @@ public class AggregateDataUtil {
 			String status = vpcLog.getAction();
 			
 			String sourceAppName = getServiceName(sourceIp, serviceInfos);
-			String destAppName= getServiceName(sourceIp, serviceInfos);
+			String destAppName= getServiceName(destIp, serviceInfos);
 //			System.out.println("sourceAppName:" + sourceAppName);
 //			System.out.println("destAppName:" + destAppName);
 //			
