@@ -173,6 +173,8 @@ public class AggregateDataUtil {
 		
 		node.setRenderer("focusedChild");		
 		node.setClassName("normal");
+		node.setMaxVolume("100");
+		node.setConnections(new ArrayList<ServiceConnection>());
 		return node;
 	}
 	
