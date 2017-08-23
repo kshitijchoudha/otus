@@ -199,7 +199,7 @@ public class ServiceAggregateRestController {
 		String secretAccessKey = Application.SECRET_ACCESS_KEY;
 		List<VPCFlowLogResponse> vpcLogResponse = s3Client.readObjectFromS3(accessKey, secretAccessKey);
 
-		response = AggregateDataUtil.createData(serviceDetails, vpcLogResponse);
+		AggregateResponse response = AggregateDataUtil.createData(serviceDetails, vpcLogResponse);
 
 		return response;
     }
