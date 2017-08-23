@@ -109,10 +109,25 @@ public class ServiceAggregateRestController {
 		eurekainstance.setInstanceId("-1");
 		eurekainstances.add(eurekainstance);
 		eurekaDetails.setInstance(eurekainstances);
-		eurekeInfo.setApplication(eurekaDetails);
-		
+		eurekeInfo.setApplication(eurekaDetails);		
 		serviceInfos.add(eurekeInfo);
 		
+		ServiceInformation internetInfo = new ServiceInformation();
+		ServiceDetails internetDetails = new ServiceDetails();		
+		List<Instance> internetInstances = new ArrayList<Instance>();
+		Instance interInstance = new Instance();
+		
+		interInstance.setApp("INTERNET");
+		interInstance.setIpAddr("");
+		Port internetport = new Port();
+		internetport.setDollar("1111");
+		interInstance.setPort(internetport);
+		interInstance.setInstanceId("-1");
+		internetInstances.add(interInstance);
+		internetDetails.setInstance(internetInstances);
+		internetInfo.setApplication(internetDetails);		
+		serviceInfos.add(internetInfo);		
+
 		//get S3 data
 		AmazonS3ClientUtil s3Client = new AmazonS3ClientUtil();
         return instances;
