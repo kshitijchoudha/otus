@@ -12,14 +12,14 @@ import request from 'superagent';
 
 import './trafficFlow.css';
 import Breadcrumbs from './breadcrumbs';
-import DisplayOptions from './displayOptions';
-import PhysicsOptions from './physicsOptions';
-import FilterControls from './filterControls';
+// import DisplayOptions from './displayOptions';
+// import PhysicsOptions from './physicsOptions';
+// import FilterControls from './filterControls';
 import DetailsPanelConnection from './detailsPanelConnection';
 import DetailsPanelNode from './detailsPanelNode';
 import LoadingCover from './loadingCover';
-import Locator from './locator';
-import OptionsPanel from './optionsPanel';
+// import Locator from './locator';
+// import OptionsPanel from './optionsPanel';
 import UpdateStatus from './updateStatus';
 
 import filterActions from './filterActions';
@@ -78,6 +78,28 @@ class TrafficFlow extends React.Component {
       modes: {
         detailedNode: 'volume'
       }
+    };
+
+    this.vizceralStyles = {
+      colorText: 'rgb(214, 214, 214)',
+      colorTextDisabled: 'rgb(129, 129, 129)',
+      colorTraffic: {
+        normal: 'rgb(186, 213, 237)',
+        normalDonut: 'rgb(91, 91, 91)',
+        warning: 'rgb(268, 185, 73)',
+        danger: 'rgb(184, 36, 36)',
+      },
+      colorNormalDimmed: 'rgb(101, 117, 128)',
+      colorBackgroundDark: 'rgb(35, 35, 35)',
+      colorLabelBorder: 'rgb(16, 17, 18)',
+      colorLabelText: 'rgb(0, 0, 0)',
+      colorDonutInternalColor: 'rgb(35, 35, 35)',
+      colorDonutInternalColorHighlighted: 'rgb(255, 255, 255)',
+      colorConnectionLine: 'rgb(144, 221, 88)',
+      colorPageBackground: 'rgb(45, 45, 45)',
+      colorPageBackgroundTransparent: 'rgba(45, 45, 45, 0)',
+      colorBorderLines: 'rgb(137, 137, 137)',
+      colorArcBackground: 'rgb(60, 60, 60)'
     };
 
     // Browser history support
@@ -202,7 +224,6 @@ class TrafficFlow extends React.Component {
       const updated = node.updated;
       return { region: node.name, updated: updated };
     });
-    console.log('updating data...');
     const lastUpdatedTime = _.max(_.map(regionUpdateStatus, 'updated'));
     this.setState({
       regionUpdateStatus: regionUpdateStatus,
@@ -308,15 +329,15 @@ class TrafficFlow extends React.Component {
     const connectionToShowDetails = this.state.highlightedObject && this.state.highlightedObject.type === 'connection' ? this.state.highlightedObject : undefined;
     const showLoadingCover = !this.state.currentGraph;
 
-    let matches;
-    if (this.state.currentGraph) {
-      matches = {
-        totalMatches: this.state.matches.total,
-        visibleMatches: this.state.matches.visible,
-        total: this.state.currentGraph.nodeCounts.total,
-        visible: this.state.currentGraph.nodeCounts.visible
-      };
-    }
+    // let matches;
+    // if (this.state.currentGraph) {
+    //   matches = {
+    //     totalMatches: this.state.matches.total,
+    //     visibleMatches: this.state.matches.visible,
+    //     total: this.state.currentGraph.nodeCounts.total,
+    //     visible: this.state.currentGraph.nodeCounts.visible
+    //   };
+    // }
 
     return (
       <div className="vizceral-container">
@@ -328,13 +349,13 @@ class TrafficFlow extends React.Component {
         <div className="subheader">
           <Breadcrumbs rootTitle="global" navigationStack={this.state.currentView || []} navigationCallback={this.navigationCallback} />
           <UpdateStatus status={this.state.regionUpdateStatus} baseOffset={this.state.timeOffset} warnThreshold={180000} />
-          <div style={{ float: 'right', paddingTop: '4px' }}>
+          {/* <div style={{ float: 'right', paddingTop: '4px' }}>
             { (!globalView && matches) && <Locator changeCallback={this.locatorChanged} searchTerm={this.state.searchTerm} matches={matches} clearFilterCallback={this.filtersCleared} /> }
             <OptionsPanel title="Filters"><FilterControls /></OptionsPanel>
             <OptionsPanel title="Display"><DisplayOptions options={this.state.displayOptions} changedCallback={this.displayOptionsChanged} /></OptionsPanel>
             <OptionsPanel title="Physics"><PhysicsOptions options={this.state.currentGraph_physicsOptions} changedCallback={this.physicsOptionsChanged}/></OptionsPanel>
             <a role="button" className="reset-layout-link" onClick={this.resetLayoutButtonClicked}>Reset Layout</a>
-          </div>
+          </div>*/}
         </div>
         <div className="service-traffic-map">
           <div style={{ position: 'absolute', top: '0px', right: nodeToShowDetails || connectionToShowDetails ? '380px' : '0px', bottom: '0px', left: '0px' }}>
@@ -351,6 +372,7 @@ class TrafficFlow extends React.Component {
                       match={this.state.searchTerm}
                       modes={this.state.modes}
                       allowDraggingOfNodes={this.state.displayOptions.allowDraggingOfNodes}
+                      styles={this.vizceralStyles}
             />
           </div>
           {
