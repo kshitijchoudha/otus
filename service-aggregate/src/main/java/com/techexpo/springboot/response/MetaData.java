@@ -1,15 +1,21 @@
 package com.techexpo.springboot.response;
 
 public class MetaData {
-	private String streaming;
+	private int streaming;
 
-	public String getStreaming() {
+	
+
+	public int getStreaming() {
 		return streaming;
 	}
 
-	public void setStreaming(String streaming) {
+
+
+	public void setStreaming(int streaming) {
 		this.streaming = streaming;
 	}
+
+
 
 	@Override
 	public String toString() {

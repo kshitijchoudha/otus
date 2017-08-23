@@ -8,7 +8,7 @@ public class ServiceNode {
 
 	private String renderer;
 	private String name;
-	private String maxVolume;
+	private int maxVolume;
 	
 	@JsonProperty("class")
 	private String className;
@@ -36,10 +36,13 @@ public class ServiceNode {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getMaxVolume() {
+	
+	
+	
+	public int getMaxVolume() {
 		return maxVolume;
 	}
-	public void setMaxVolume(String maxVolume) {
+	public void setMaxVolume(int maxVolume) {
 		this.maxVolume = maxVolume;
 	}
 	public String getClassName() {

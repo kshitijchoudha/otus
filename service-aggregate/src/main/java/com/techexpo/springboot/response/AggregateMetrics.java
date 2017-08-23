@@ -2,20 +2,35 @@ package com.techexpo.springboot.response;
 
 public class AggregateMetrics {
 	
-	private String normal;
-	private String danger;
-	public String getNormal() {
+	private int normal;
+	private int danger;
+	
+	
+	
+	public int getNormal() {
 		return normal;
 	}
-	public void setNormal(String normal) {
+
+
+
+	public void setNormal(int normal) {
 		this.normal = normal;
 	}
-	public String getDanger() {
+
+
+
+	public int getDanger() {
 		return danger;
 	}
-	public void setDanger(String danger) {
+
+
+
+	public void setDanger(int danger) {
 		this.danger = danger;
 	}
+
+
+
 	@Override
 	public String toString() {
 		return "Metrics [normal=" + normal + ", danger=" + danger + "]";

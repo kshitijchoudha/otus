@@ -53,7 +53,7 @@ public class AggregateDataUtil {
 		List<ServiceNode> nodes = new ArrayList<ServiceNode>();
 		ServiceNode node = new ServiceNode();
 		node.setRenderer("region");
-		node.setMaxVolume("50000");
+		node.setMaxVolume(50000);
 		node.setClusters(new ArrayList<AggregateCluster>());
 		node.setName("us-east-2");
 		node.setClassName("normal");
@@ -94,11 +94,11 @@ public class AggregateDataUtil {
 				if (flowLogMap.keySet().contains(key)) {
 					ServiceConnection serviceConnection = flowLogMap.get(key);
 					if(status.equalsIgnoreCase("REJECT")) {
-						int rejectCount = Integer.parseInt(serviceConnection.getMetrics().getDanger()) + 1;
-						serviceConnection.getMetrics().setDanger(""+rejectCount);
+						int rejectCount = serviceConnection.getMetrics().getDanger() + 1;
+						serviceConnection.getMetrics().setDanger(rejectCount);
 					} else {
-						int successCount  = Integer.parseInt(serviceConnection.getMetrics().getNormal()) + 1;
-						serviceConnection.getMetrics().setNormal(""+successCount);
+						int successCount  = serviceConnection.getMetrics().getNormal() + 1;
+						serviceConnection.getMetrics().setNormal(successCount);
 					}
 					flowLogMap.put(key, serviceConnection);
 					
@@ -109,11 +109,11 @@ public class AggregateDataUtil {
 					serviceConnection.setTarget(destAppName);
 					AggregateMetrics metrics = new AggregateMetrics();
 					if(status.equalsIgnoreCase("REJECT")) {
-						metrics.setDanger("1");
-						metrics.setNormal("0");
+						metrics.setDanger(1);
+						metrics.setNormal(0);
 					} else {
-						metrics.setNormal("1");
-						metrics.setDanger("0");
+						metrics.setNormal(1);
+						metrics.setDanger(0);
 	
 					}
 					serviceConnection.setMetrics(metrics);
@@ -166,14 +166,14 @@ public class AggregateDataUtil {
 		node.setServiceDetails(details);
 		
 		MetaData metaData = new MetaData();
-		metaData.setStreaming("1");
+		metaData.setStreaming(1);
 		node.setMetadata(metaData);
 		
 		node.setClusters(new ArrayList<AggregateCluster>());
 		
 		node.setRenderer("focusedChild");		
 		node.setClassName("normal");
-		node.setMaxVolume("100");
+		node.setMaxVolume(100);
 		node.setConnections(new ArrayList<ServiceConnection>());
 		return node;
 	}
@@ -195,8 +195,8 @@ public class AggregateDataUtil {
 		serviceConnection.setTarget("us-east-2");
 		
 		AggregateMetrics metrics = new AggregateMetrics();
-		metrics.setNormal("26037.626");
-		metrics.setDanger("92.37");
+		metrics.setNormal(26037);
+		metrics.setDanger(92);
 		serviceConnection.setMetrics(metrics);
 		
 		serviceConnection.setNotices(new ArrayList<AggregateServiceNotice>());
