@@ -82,8 +82,8 @@ public class AggregateDataUtil {
 			
 			String sourceAppName = getServiceName(sourceIp, serviceInfos);
 			String destAppName= getServiceName(destIp, serviceInfos);
-//			System.out.println("sourceAppName:" + sourceAppName);
-//			System.out.println("destAppName:" + destAppName);
+			System.out.println("sourceAppName:" + sourceAppName);
+			System.out.println("destAppName:" + destAppName);
 //			
 //			String key = sourceAppName + "-" + destAppName;
 			
