@@ -24,6 +24,9 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.techexpo.springboot.application.Application;
+import com.techexpo.springboot.model.Instance;
+import com.techexpo.springboot.model.Port;
 import com.techexpo.springboot.model.Response;
 import com.techexpo.springboot.model.ServiceDetails;
 import com.techexpo.springboot.model.ServiceInformation;
@@ -31,7 +34,6 @@ import com.techexpo.springboot.model.VPCFlowLogResponse;
 import com.techexpo.springboot.response.AggregateResponse;
 import com.techexpo.springboot.util.AggregateDataUtil;
 import com.techexpo.springboot.util.AmazonS3ClientUtil;
-import com.techexpo.springboot.application.Application;;
 
 @RestController
 public class ServiceAggregateRestController {
@@ -94,6 +96,23 @@ public class ServiceAggregateRestController {
 		for (String jsonString : instances) {
 			serviceInfos.add(getServiceInformation(jsonString));
 		}
+		
+		ServiceInformation eurekeInfo = new ServiceInformation();
+		ServiceDetails eurekaDetails = new ServiceDetails();
+		List<Instance> eurekainstances = new ArrayList<Instance>();
+		Instance eurekainstance = new Instance();
+		eurekainstance.setApp("Eureka");
+		eurekainstance.setIpAddr("34.193.236.46");
+		Port port = new Port();
+		port.setDollar("8761");
+		eurekainstance.setPort(port);
+		eurekainstance.setInstanceId("-1");
+		eurekainstances.add(eurekainstance);
+		eurekaDetails.setInstance(eurekainstances);
+		eurekeInfo.setApplication(eurekaDetails);
+		
+		serviceInfos.add(eurekeInfo);
+		
 		//get S3 data
 		AmazonS3ClientUtil s3Client = new AmazonS3ClientUtil();
         return instances;
