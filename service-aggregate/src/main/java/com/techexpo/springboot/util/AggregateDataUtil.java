@@ -89,8 +89,8 @@ public class AggregateDataUtil {
 			
 //			String key = sourceIp + "-" + destIp;
 			
-			if(!sourceAppName.equalsIgnoreCase("INTERNET") && !destAppName.equalsIgnoreCase("INTERNET")) {
-			
+			if(sourceAppName.equalsIgnoreCase("INTERNET") && destAppName.equalsIgnoreCase("INTERNET")) {
+			} else {
 				if (flowLogMap.keySet().contains(key)) {
 					ServiceConnection serviceConnection = flowLogMap.get(key);
 					if(status.equalsIgnoreCase("REJECT")) {
