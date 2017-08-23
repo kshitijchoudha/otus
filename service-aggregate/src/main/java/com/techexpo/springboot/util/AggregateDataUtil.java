@@ -89,34 +89,37 @@ public class AggregateDataUtil {
 			
 //			String key = sourceIp + "-" + destIp;
 			
-			if (flowLogMap.keySet().contains(key)) {
-				ServiceConnection serviceConnection = flowLogMap.get(key);
-				if(status.equalsIgnoreCase("REJECT")) {
-					int rejectCount = Integer.parseInt(serviceConnection.getMetrics().getDanger()) + 1;
-					serviceConnection.getMetrics().setDanger(""+rejectCount);
+			if(!sourceAppName.equalsIgnoreCase("INTERNET") && !destAppName.equalsIgnoreCase("INTERNET")) {
+			
+				if (flowLogMap.keySet().contains(key)) {
+					ServiceConnection serviceConnection = flowLogMap.get(key);
+					if(status.equalsIgnoreCase("REJECT")) {
+						int rejectCount = Integer.parseInt(serviceConnection.getMetrics().getDanger()) + 1;
+						serviceConnection.getMetrics().setDanger(""+rejectCount);
+					} else {
+						int successCount  = Integer.parseInt(serviceConnection.getMetrics().getNormal()) + 1;
+						serviceConnection.getMetrics().setNormal(""+successCount);
+					}
+					flowLogMap.put(key, serviceConnection);
+					
 				} else {
-					int successCount  = Integer.parseInt(serviceConnection.getMetrics().getNormal()) + 1;
-					serviceConnection.getMetrics().setNormal(""+successCount);
+					ServiceConnection serviceConnection = new ServiceConnection();
+					serviceConnection.setClassName("normal");
+					serviceConnection.setSource(sourceAppName);
+					serviceConnection.setTarget(destAppName);
+					AggregateMetrics metrics = new AggregateMetrics();
+					if(status.equalsIgnoreCase("REJECT")) {
+						metrics.setDanger("1");
+						metrics.setNormal("0");
+					} else {
+						metrics.setNormal("1");
+						metrics.setDanger("0");
+	
+					}
+					serviceConnection.setMetrics(metrics);
+					serviceConnection.setNotices(new ArrayList<AggregateServiceNotice>());
+					flowLogMap.put(key, serviceConnection);
 				}
-				flowLogMap.put(key, serviceConnection);
-				
-			} else {
-				ServiceConnection serviceConnection = new ServiceConnection();
-				serviceConnection.setClassName("normal");
-				serviceConnection.setSource(sourceAppName);
-				serviceConnection.setTarget(destAppName);
-				AggregateMetrics metrics = new AggregateMetrics();
-				if(status.equalsIgnoreCase("REJECT")) {
-					metrics.setDanger("1");
-					metrics.setNormal("0");
-				} else {
-					metrics.setNormal("1");
-					metrics.setDanger("0");
-
-				}
-				serviceConnection.setMetrics(metrics);
-				serviceConnection.setNotices(new ArrayList<AggregateServiceNotice>());
-				flowLogMap.put(key, serviceConnection);
 			}
 			
 		}
@@ -125,6 +128,7 @@ public class AggregateDataUtil {
 		while(keySetIterator.hasNext()) { 
 			String key = keySetIterator.next(); 
 			System.out.println("key: " + key + " value: " + flowLogMap.get(key)); 
+			
 			serviceConnections.add(flowLogMap.get(key));
 		}
 		return serviceConnections;
