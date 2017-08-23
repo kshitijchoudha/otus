@@ -1,64 +1,49 @@
 package com.otus.springboot.serviceb.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.util.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class ServicerBController {
 	
-	   private static final Logger LOGGER = LoggerFactory.getLogger(ServicerBController.class);
-	    
-	    private static final String SERVICE_C_URL="http://localhost:9083/greeting";
-	    private static final String SERVICE_D_URL="http://localhost:9084/greeting";
-	    
-	    
-	    private static final String[] SERVICE_URLS={SERVICE_C_URL, SERVICE_D_URL};
-	    
-	    @Autowired
-	    RestTemplate restTemplate;
+	@Autowired
+	ServiceEClient serviceEClient;
 	 
+	@Autowired
+	ServiceFClient serviceFClient;
 	
-	@RequestMapping(value="/getDetails/", method = RequestMethod.GET)
-    public List<String> greeting() {
-		List<String> names = new ArrayList<String>();
-		LOGGER.info("getting employee details");
-		names.add("OTUS-B --> ");
-		
-		for(String url: SERVICE_URLS) {		
-			String cname = getFromService(url);
-			if(!StringUtils.isEmpty(cname)) {
-				names.add(cname);
-			}
-		}
-		return names;
+	@RequestMapping(value="/hello", method = RequestMethod.GET)
+    public String greeting() {
+		return "[B][" + serviceEClient.hello() + "][" + serviceFClient.hello() + "]";
     }
 	
-	private String getFromService(String url) {
-		String str = null;
-		LOGGER.info("Getting response from URL: " + url);
-		try {
-			return restTemplate.getForObject(url, String.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return str;
+	@FeignClient(name = "service-e", fallback = ServiceEClientFallback.class)
+	 interface ServiceEClient {
+	  @RequestMapping(value = "/hello", method = RequestMethod.GET)
+	  String hello();
+	}
+
+	@FeignClient(name = "service-f", fallback = ServiceFClientFallback.class)
+	 interface ServiceFClient {
+	  @RequestMapping(value = "/hello", method = RequestMethod.GET)
+	  String hello();
 	}
 	
-
-    @Bean
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
-
+	@Component
+	public class ServiceEClientFallback implements ServiceEClient {
+		public String hello() {
+			return "[e]";
+		}
+	}
+	
+	@Component
+	public class ServiceFClientFallback implements ServiceFClient {
+		public String hello() {
+			return "[f]";
+		}
+	}
 }

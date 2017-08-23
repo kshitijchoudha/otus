@@ -1,9 +1,10 @@
-package com.techexpo.springboot.amazon.util;
+package com.techexpo.springboot.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.amazonaws.AmazonClientException;
@@ -18,35 +19,41 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.techexpo.springboot.model.VPCFlowLogResponse;
 
 public class AmazonS3ClientUtil {
 	private static final String SUFFIX = "/";
-	private static final String ACCESS_KEY = "AKIAJEAWQ7HS4664ZXSQ";
-	private static final String SECRET_ACCESS_KEY = "swZJmeG53csbBvbkgInTSZYGCiNjWjcPN/KajYmW";
-	private static String bucketName = "otus-example-bucket"; 
-	private static String key        = "foo.txt";    
+	private static String US_ACCESS_KEY = "";
+	private static String SECRET_US_ACCESS_KEY = "";
+	private static String bucketName = "otus-201708"; 
+	private static String key        = "otusVpCFlowLog";    
 	
 	
 //	public static void main(String ... args) throws IOException {
 //		AmazonS3ClientUtil util = new AmazonS3ClientUtil();
 //		//util.createBucket();
-//		util.readObjectFromS3();
+//		System.out.println("=========args: " + args[0]);
+//		accessKey = args[0];
+//		secretAccessKey = args[1];
+//		util.readObjectFromS3(US_ACCESS_KEY, SECRET_US_ACCESS_KEY);
 //		//util.deleteFolder();
 //	}
 	
 	
-	private void createBucket() {
-		AmazonS3 s3Client = getS3Client();
-        s3Client.setRegion(Region.getRegion(Regions.US_WEST_1));
+	private void createBucket(String accessKey, String secretAccessKey) {
+		AmazonS3 s3Client = getS3Client(accessKey, secretAccessKey);
+        s3Client.setRegion(Region.getRegion(Regions.US_EAST_2));
 
 		// create bucket - name must be unique for all S3 users
 		String bucket = "otus-example-bucket";				
 		s3Client.createBucket(bucket);
 	}
 	
-	private void readObjectFromS3() throws IOException {
-		AmazonS3 s3Client = getS3Client();
-		s3Client.setRegion(Region.getRegion(Regions.US_WEST_1));
+	
+	
+	public List<VPCFlowLogResponse> readObjectFromS3(String accessKey, String secretAccessKey) throws IOException {
+		AmazonS3 s3Client = getS3Client(accessKey, secretAccessKey);
+		s3Client.setRegion(Region.getRegion(Regions.US_EAST_2));
 		try {
 			System.out.println("Downloading object from S3 bucket");
             S3Object s3object = s3Client.getObject(new GetObjectRequest(
@@ -55,16 +62,9 @@ public class AmazonS3ClientUtil {
             System.out.println("Content-Type: "  + 
             		s3object.getObjectMetadata().getContentType());
             
-            displayTextInputStream(s3object.getObjectContent());
+            return displayTextInputStream(s3object.getObjectContent());
+
             
-            // Get a range of bytes from an object.
- /*           GetObjectRequest rangeObjectRequest = new GetObjectRequest(
-            		bucketName, key);
-            rangeObjectRequest.setRange(0, 10);
-            S3Object objectPortion = s3Client.getObject(rangeObjectRequest);
-            
-            System.out.println("Printing bytes retrieved.");
-            displayTextInputStream(objectPortion.getObjectContent());*/
 
 		} catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which" +
@@ -84,6 +84,7 @@ public class AmazonS3ClientUtil {
                     "such as not being able to access the network.");
             System.out.println("Error Message: " + ace.getMessage());
         }
+		return null;
 	}
 	
 	/**
@@ -91,7 +92,7 @@ public class AmazonS3ClientUtil {
 	 * folder itself
 	 */
 	private void deleteFolder() {
-		AmazonS3 s3Client = getS3Client();
+		AmazonS3 s3Client = getS3Client(US_ACCESS_KEY, SECRET_US_ACCESS_KEY);
 		s3Client.setRegion(Region.getRegion(Regions.US_WEST_1));
 		ObjectListing object = s3Client.listObjects(bucketName);
 		System.out.println(object.toString());
@@ -105,22 +106,50 @@ public class AmazonS3ClientUtil {
 		}
 	}
 	
-	private static void displayTextInputStream(InputStream input) throws IOException {
-    	// Read one text line at a time and display.
+	private static List<VPCFlowLogResponse> displayTextInputStream(InputStream input) throws IOException {
+		List<VPCFlowLogResponse> vpcLogList = new ArrayList<VPCFlowLogResponse>();
+		VPCFlowLogResponse vpcLog = new VPCFlowLogResponse();
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         while (true) {
             String line = reader.readLine();
             if (line == null) break;
-
-            System.out.println("    " + line);
+            vpcLog = lineBreak(line);
+            vpcLogList.add(vpcLog);
+//            System.out.println("    " + lineBreak(line));
         }
-        System.out.println();
+//        System.out.println();
+        return vpcLogList;
     }
-	private AmazonS3 getS3Client() {
+	
+	private static VPCFlowLogResponse lineBreak(String line) {
+		VPCFlowLogResponse resp = new VPCFlowLogResponse();
+		String[] output = line.split(" ");
+		resp.setVersion(output[0]);
+		resp.setAccointId(output[1]);
+		resp.setInterfaceId(output[2]);
+		resp.setSourceAddress(output[3]);
+		resp.setDestinationAddress(output[4]);
+		resp.setSourcePort(output[5]);
+		resp.setDestinationPort(output[6]);
+		resp.setProtocol(output[7]);
+		resp.setPackets(output[8]);
+		resp.setBytes(output[9]);
+		resp.setStartTime(output[10]);
+		resp.setEndTime(output[11]);
+		resp.setAction(output[12]);
+		resp.setLogStatus(output[13]);
+		System.out.println(resp.toString());
+		return resp;
+	}
+	private AmazonS3 getS3Client(String accessKey, String secretAccessKey) {
 		// credentials object identifying user for authentication
 		// user must have AWSConnector and AmazonS3FullAccess for 
 		// this example to work
-		AWSCredentials credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_ACCESS_KEY);
+		
+		System.out.println("=========args: " + accessKey);
+		System.out.println("=========args: " + secretAccessKey);
+
+		AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretAccessKey);
 		
 		// create a client connection based on credentials
 		AmazonS3 s3client = new AmazonS3Client(credentials);      

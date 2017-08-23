@@ -18,7 +18,7 @@ general:
     - "service-h/target/service-h-1.0-SNAPSHOT.jar"
     - "service-i/target/service-i-1.0-SNAPSHOT.jar"
     - "service-aggregate/target/service-aggregate-1.0-SNAPSHOT.jar"
-    - "service-discovery/target/service-discovery-0.0.1-SNAPSHOT.jar"
+    - "service-discovery/target/service-discovery-1.0-SNAPSHOT.jar"
 deployment:
   prod:
     branch: master
@@ -34,4 +34,4 @@ deployment:
       - aws s3 cp service-h/target/service-h-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-h/
       - aws s3 cp service-i/target/service-i-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-i/      
       - aws s3 cp service-aggregate/target/service-aggregate-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-aggregate/
-      - aws s3 cp service-discovery/target/service-discovery-0.0.1-SNAPSHOT.jar s3://otus-201708/lib/service-discovery/
+      - aws s3 cp service-discovery/target/service-discovery-1.0-SNAPSHOT.jar s3://otus-201708/lib/service-discovery/
