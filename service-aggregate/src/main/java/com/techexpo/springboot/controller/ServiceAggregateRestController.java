@@ -127,6 +127,10 @@ public class ServiceAggregateRestController {
 		internetDetails.setInstance(internetInstances);
 		internetInfo.setApplication(internetDetails);		
 		serviceInfos.add(internetInfo);		
+		
+		for(ServiceInformation serviceInfo: serviceInfos) {
+			System.out.println("serviceInfo..." + serviceInfo.toString());
+		}
 
 		//get S3 data
 		AmazonS3ClientUtil s3Client = new AmazonS3ClientUtil();
@@ -144,7 +148,50 @@ public class ServiceAggregateRestController {
 		Response resp = getServiceInfo(jsonString);
 
 		List<ServiceDetails> serviceDetails = resp.getApplications().getApplication();
-		AggregateResponse response = AggregateDataUtil.createDummyDate(serviceDetails);
+		
+		//ServiceInformation eurekeInfo = new ServiceInformation();
+		ServiceDetails eurekaDetails = new ServiceDetails();
+		List<Instance> eurekainstances = new ArrayList<Instance>();
+		Instance eurekainstance = new Instance();
+		eurekainstance.setApp("Eureka");
+		eurekainstance.setIpAddr("34.193.236.46");
+		Port port = new Port();
+		port.setDollar("8761");
+		eurekainstance.setPort(port);
+		eurekainstance.setInstanceId("-1");
+		
+		eurekainstances.add(eurekainstance);
+		eurekaDetails.setInstance(eurekainstances);
+		serviceDetails.add(eurekaDetails);
+		
+//		eurekeInfo.setApplication(eurekaDetails);		
+//		serviceDetails.add(eurekeInfo);
+//		
+		//ServiceInformation internetInfo = new ServiceInformation();
+		ServiceDetails internetDetails = new ServiceDetails();		
+		List<Instance> internetInstances = new ArrayList<Instance>();
+		Instance interInstance = new Instance();
+		
+		interInstance.setApp("INTERNET");
+		interInstance.setIpAddr("");
+		Port internetport = new Port();
+		internetport.setDollar("1111");
+		interInstance.setPort(internetport);
+		interInstance.setInstanceId("-1");
+		internetInstances.add(interInstance);
+		internetDetails.setInstance(internetInstances);
+		serviceDetails.add(internetDetails);
+//		internetInfo.setApplication(internetDetails);		
+//		serviceInfos.add(internetInfo);		
+//		
+		for(ServiceDetails serviceInfo: serviceDetails) {
+			System.out.println("serviceInfo..." + serviceInfo.toString());
+		}
+
+
+		
+		
+		//AggregateResponse response = AggregateDataUtil.createDummyDate(serviceDetails);
 
 		//get S3 data
 		AmazonS3ClientUtil s3Client = new AmazonS3ClientUtil();
