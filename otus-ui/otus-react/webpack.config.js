@@ -7,6 +7,13 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   devtool: 'source-map',
   entry: './src/app.jsx',
+  devServer: {
+    proxy: {
+      '/service-aggregate/**': {
+        target: 'http://34.205.171.49:8080'
+      }
+    }
+  },
   output: {
     path: path.join(__dirname, 'dist'),
 		publicPath: '/',

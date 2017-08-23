@@ -13,6 +13,7 @@ class DetailsPanelNode extends React.Component {
     super(props);
     this.state = {
       node: props.node,
+      nodeStatus: props.nodeStatus,
       region: props.region,
       description: undefined
     };
@@ -21,7 +22,8 @@ class DetailsPanelNode extends React.Component {
   componentWillReceiveProps (nextProps) {
     const newState = {
       region: nextProps.region,
-      node: nextProps.node
+      node: nextProps.node,
+      nodeStatus: nextProps.nodeStatus
     };
 
     if (this.state.region !== nextProps.region || this.state.node.getName() !== nextProps.node.getName()) {
@@ -33,6 +35,9 @@ class DetailsPanelNode extends React.Component {
 
   render () {
     const node = this.state.node;
+    const nodeStatus = this.state.nodeStatus;
+    console.log(nodeStatus);
+    const nodeName = node.getName();
     const notices = (node && node.notices) || [];
     let zoomClassName = 'glyphicon clickable zoom-icon ';
     zoomClassName += this.props.nodeSelected ? 'glyphicon-log-out' : 'glyphicon-log-in';
@@ -58,19 +63,29 @@ class DetailsPanelNode extends React.Component {
           <ConnectionList key={node.getName()} connections={node.outgoingConnections} direction="outgoing" nodeClicked={clickedNode => this.props.nodeClicked(clickedNode)} />
         </DetailsSubpanel>
         <div className="our-buttons">
-          <button className="our-buttons__btn">Bring Up</button> <button className="our-buttons__btn">Bring Down</button>
+          { node && nodeStatus.toUpperCase() === 'UP' ?
+            <button className="our-buttons__btn" onClick={e => this.handleReloadClick(nodeName, 'DOWN')}>Bring Down</button>
+            :
+            <button className="our-buttons__btn" onClick={e => this.handleReloadClick(nodeName, 'UP')}>Bring Up</button>
+          }
         </div>
       </div>
     );
+  }
+
+  handleReloadClick (name, upOrDown) {
+    this.props.reloadCallback(name, upOrDown);
   }
 }
 
 DetailsPanelNode.propTypes = {
   closeCallback: React.PropTypes.func.isRequired,
+  reloadCallback: React.PropTypes.func.isRequired,
   zoomCallback: React.PropTypes.func.isRequired,
   node: React.PropTypes.object.isRequired,
   nodeClicked: React.PropTypes.func,
   nodeSelected: React.PropTypes.bool.isRequired,
+  nodeStatus: React.PropTypes.string.isRequired,
   region: React.PropTypes.string
 };
 

@@ -170,14 +170,31 @@ class TrafficFlow extends React.Component {
     this.setState({ currentView: currentView, objectToHighlight: parsedQuery.highlighted });
   }
 
-  beginSampleData () {
+  beginSampleData = () => {
     this.traffic = { nodes: [], connections: [] };
-    request.get('sample_data.json')
+    request.get('/service-aggregate/data/')
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (res && res.status === 200) {
           this.traffic.clientUpdateTime = Date.now();
           this.updateData(res.body);
+        }
+      });
+  }
+
+  bringServiceUpDown = (name, upOrDown) => {
+    const endpointMap = {
+      'UP': 'activate',
+      'DOWN': 'deactivate'
+    };
+
+    const callServiceName = name.toLowerCase();
+
+    request.get(`/service-aggregate/service-${endpointMap[upOrDown]}/${callServiceName}`)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (res && res.status === 200) {
+          this.beginSampleData();
         }
       });
   }
@@ -231,6 +248,8 @@ class TrafficFlow extends React.Component {
       lastUpdatedTime: lastUpdatedTime,
       trafficData: newTraffic
     });
+
+    this.detailsClosed();
   }
 
   isSelectedNode () {
@@ -326,6 +345,7 @@ class TrafficFlow extends React.Component {
     const nodeView = !globalView && this.state.currentView && this.state.currentView[1] !== undefined;
     let nodeToShowDetails = this.state.currentGraph && this.state.currentGraph.focusedNode;
     nodeToShowDetails = nodeToShowDetails || (this.state.highlightedObject && this.state.highlightedObject.type === 'node' ? this.state.highlightedObject : undefined);
+    let nodeStatus = nodeToShowDetails && nodeToShowDetails['service-details'].status;
     const connectionToShowDetails = this.state.highlightedObject && this.state.highlightedObject.type === 'connection' ? this.state.highlightedObject : undefined;
     const showLoadingCover = !this.state.currentGraph;
 
@@ -378,11 +398,13 @@ class TrafficFlow extends React.Component {
           {
             !!nodeToShowDetails &&
             <DetailsPanelNode node={nodeToShowDetails}
+                              nodeStatus={nodeStatus}
                               nodeSelected={nodeView}
                               region={this.state.currentView[0]}
                               width={panelWidth}
                               zoomCallback={this.zoomCallback}
                               closeCallback={this.detailsClosed}
+                              reloadCallback={(name, upOrDown) => this.bringServiceUpDown(name, upOrDown)}
                               nodeClicked={node => this.nodeClicked(node)}
             />
           }
