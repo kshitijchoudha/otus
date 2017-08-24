@@ -101,7 +101,7 @@ public class ServiceAggregateRestController {
 		ServiceDetails eurekaDetails = new ServiceDetails();
 		List<Instance> eurekainstances = new ArrayList<Instance>();
 		Instance eurekainstance = new Instance();
-		eurekainstance.setApp("Eureka");
+		eurekainstance.setApp("EUREKA");
 		eurekainstance.setIpAddr("34.193.236.46");
 		Port port = new Port();
 		port.setDollar("8761");
@@ -153,7 +153,7 @@ public class ServiceAggregateRestController {
 		ServiceDetails eurekaDetails = new ServiceDetails();
 		List<Instance> eurekainstances = new ArrayList<Instance>();
 		Instance eurekainstance = new Instance();
-		eurekainstance.setApp("Eureka");
+		eurekainstance.setApp("EUREKA");
 		eurekainstance.setIpAddr("34.193.236.46");
 		Port port = new Port();
 		port.setDollar("8761");

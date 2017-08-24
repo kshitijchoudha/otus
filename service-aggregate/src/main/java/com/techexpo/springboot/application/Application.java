@@ -27,17 +27,20 @@ public class Application {
     public static String SECRET_ACCESS_KEY;
     public static String SUCCESS_RANDOM_COUNT;
     public static String FAILED_RANDOM_COUNT;
+    public static String EUREKA_FLAG;
+
     
 	/**
 	 * @param args
 	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) throws InterruptedException {
-		if(null != args && args.length >= 4)  {
+		if(null != args && args.length >= 5)  {
 			ACCESS_KEY = args[0];
 			SECRET_ACCESS_KEY = args[1];
 			SUCCESS_RANDOM_COUNT = args[2];
 			FAILED_RANDOM_COUNT = args[3];
+			EUREKA_FLAG = args[4];
 		} else {
 			System.err.print("Pass Access Key and Secret Access Key");
 			System.exit(0);

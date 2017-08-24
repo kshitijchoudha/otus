@@ -107,7 +107,11 @@ public class AggregateDataUtil {
 		List<ServiceConnection> serviceConnections = new ArrayList<ServiceConnection>();
 		Map<String, ServiceConnection> flowLogMap = new HashMap<String, ServiceConnection>();
 		
-		System.out.println("====size===" + vpcLogResponse.size());
+		if(null != vpcLogResponse && vpcLogResponse.size() > 0) {
+			System.out.println("====size===" + vpcLogResponse.size());
+		}
+		
+		Map<String, String> map =  getMap();
 		
 		for (VPCFlowLogResponse vpcLog :vpcLogResponse) {
 			String sourceIp = vpcLog.getSourceAddress();
@@ -126,9 +130,11 @@ public class AggregateDataUtil {
 			String key = sourceAppName + "-" + destAppName;
 //			String key = sourceIp + "-" + destIp;
 			
+			
+			
 //			if(sourceAppName.equalsIgnoreCase("INTERNET") && destAppName.equalsIgnoreCase("INTERNET")) {
 //			} else {
-			if(dependencyMap.containsKey(key)  ) {
+			if(map.containsKey(key)  ) {
 				System.out.println("Key Found:" + key);
 				if (flowLogMap.keySet().contains(key)) {
 					ServiceConnection serviceConnection = flowLogMap.get(key);
@@ -192,6 +198,15 @@ public class AggregateDataUtil {
 			serviceConnections.add(flowLogMap.get(key));
 		}
 		return serviceConnections;
+	}
+	
+	private static Map<String, String> getMap() {
+		if (Application.EUREKA_FLAG.equalsIgnoreCase("true")) {
+			System.out.println("Map Name:" + dependencyMapWithEureka);
+			return dependencyMapWithEureka;
+		}
+		System.out.println("Map Name:" + dependencyMap);
+		return dependencyMap;
 	}
 	
 	private static String getServiceName(String ipAddress, List<ServiceDetails> serviceInfos ) {
