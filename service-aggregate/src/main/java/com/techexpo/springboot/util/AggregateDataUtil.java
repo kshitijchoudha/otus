@@ -23,6 +23,7 @@ import com.techexpo.springboot.response.ServiceNode;
 public class AggregateDataUtil {
 	
 	private static Map<String, String> dependencyMap = null;
+	private static Map<String, String> dependencyMapWithEureka = null;
 	
 	static {
         Map<String, String> aMap = new HashMap<String, String>();
@@ -38,6 +39,19 @@ public class AggregateDataUtil {
         aMap.put("SERVICE-F-SERVICE-G", "");
         aMap.put("SERVICE-F-SERVICE-I", "");
         dependencyMap = Collections.unmodifiableMap(aMap);
+
+        aMap.put("INTERNET-EUREKA", "");
+        aMap.put("SERVICE-A-EUREKA", "");
+        aMap.put("SERVICE-B-EUREKA", "");
+        aMap.put("SERVICE-C-EUREKA", "");
+        aMap.put("SERVICE-AGGREGATE-EUREKA", "");
+        aMap.put("SERVICE-D-EUREKA", "");
+        aMap.put("SERVICE-E-EUREKA", "");
+        aMap.put("SERVICE-F-EUREKA", "");
+        aMap.put("SERVICE-G-EUREKA", "");
+        aMap.put("SERVICE-H-EUREKA", "");
+        aMap.put("SERVICE-I-EUREKA", "");
+        dependencyMapWithEureka = Collections.unmodifiableMap(aMap);
     }
 
 	public static AggregateResponse createDummyDate(List<ServiceDetails>  serviceInfos) {
