@@ -194,7 +194,9 @@ class TrafficFlow extends React.Component {
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (res && res.status === 200) {
-          this.beginSampleData();
+          setTimeout(() => {
+            this.beginSampleData();
+          }, 5000);
         }
       });
   }
@@ -248,8 +250,6 @@ class TrafficFlow extends React.Component {
       lastUpdatedTime: lastUpdatedTime,
       trafficData: newTraffic
     });
-
-    this.detailsClosed();
   }
 
   isSelectedNode () {

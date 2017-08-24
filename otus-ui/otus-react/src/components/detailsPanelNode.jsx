@@ -35,7 +35,7 @@ class DetailsPanelNode extends React.Component {
 
   render () {
     const node = this.state.node;
-    const nodeStatus = this.state.nodeStatus;
+    // const nodeStatus = this.state.nodeStatus;
     const nodeName = node.getName();
     const notices = (node && node.notices) || [];
     let zoomClassName = 'glyphicon clickable zoom-icon ';
@@ -62,18 +62,11 @@ class DetailsPanelNode extends React.Component {
           <ConnectionList key={node.getName()} connections={node.outgoingConnections} direction="outgoing" nodeClicked={clickedNode => this.props.nodeClicked(clickedNode)} />
         </DetailsSubpanel>
         <div className="our-buttons">
-          { node && nodeStatus.toUpperCase() === 'UP' ?
-            <button className="our-buttons__btn" onClick={() => this.handleReloadClick(nodeName, 'DOWN')}>Bring Down</button>
-            :
-            <button className="our-buttons__btn" onClick={() => this.handleReloadClick(nodeName, 'UP')}>Bring Up</button>
-          }
+          <button className="our-buttons__btn" onClick={() => this.props.reloadCallback(nodeName, 'UP')}>Bring Up</button>
+          <button className="our-buttons__btn" onClick={() => this.props.reloadCallback(nodeName, 'DOWN')}>Bring Down</button>
         </div>
       </div>
     );
-  }
-
-  handleReloadClick (name, upOrDown) {
-    this.props.reloadCallback(name, upOrDown);
   }
 }
 
