@@ -101,24 +101,33 @@ public class AggregateDataUtil {
 			
 			String sourceAppName = getServiceName(sourceIp, serviceInfos);
 			String destAppName= getServiceName(destIp, serviceInfos);
-			System.out.println("sourceAppName:" + sourceAppName);
-			System.out.println("destAppName:" + destAppName);
+			String sourceStatus = getServiceStatus(sourceIp,serviceInfos);
+			String destStatus = getServiceStatus(destIp,serviceInfos);
+
+			
+			System.out.println("sourceAppName:" + sourceAppName + ":: Source Status:" + sourceStatus);
+			System.out.println("destAppName:" + destAppName + ":: destination Status:" + destStatus);
 //			
 			String key = sourceAppName + "-" + destAppName;
 //			String key = sourceIp + "-" + destIp;
 			
 //			if(sourceAppName.equalsIgnoreCase("INTERNET") && destAppName.equalsIgnoreCase("INTERNET")) {
 //			} else {
-			if(dependencyMap.containsKey(key)) {
+			if(dependencyMap.containsKey(key)  ) {
 				System.out.println("Key Found:" + key);
 				if (flowLogMap.keySet().contains(key)) {
 					ServiceConnection serviceConnection = flowLogMap.get(key);
-					if(status.equalsIgnoreCase("REJECT")) {
-						int rejectCount = serviceConnection.getMetrics().getDanger() + 1;
-						serviceConnection.getMetrics().setDanger(rejectCount);
+					if (sourceStatus.equalsIgnoreCase("DOWN") || destStatus.equalsIgnoreCase("DOWN")) {
+						serviceConnection.getMetrics().setDanger(0);
+						serviceConnection.getMetrics().setNormal(0);
 					} else {
-						int successCount  = serviceConnection.getMetrics().getNormal() + 1;
-						serviceConnection.getMetrics().setNormal(successCount);
+						if(status.equalsIgnoreCase("REJECT")) {
+							int rejectCount = serviceConnection.getMetrics().getDanger() + 1;
+							serviceConnection.getMetrics().setDanger(rejectCount);
+						} else {
+							int successCount  = serviceConnection.getMetrics().getNormal() + 1;
+							serviceConnection.getMetrics().setNormal(successCount);
+						}
 					}
 					flowLogMap.put(key, serviceConnection);
 					
@@ -128,15 +137,20 @@ public class AggregateDataUtil {
 					serviceConnection.setSource(sourceAppName);
 					serviceConnection.setTarget(destAppName);
 					AggregateMetrics metrics = new AggregateMetrics();
-					if(status.equalsIgnoreCase("REJECT")) {
-						metrics.setDanger(1);
+					if (sourceStatus.equalsIgnoreCase("DOWN") || destStatus.equalsIgnoreCase("DOWN")) {
+						metrics.setDanger(0);
 						metrics.setNormal(0);
 					} else {
-						metrics.setNormal(1);
-						metrics.setDanger(0);
-	
+						if(status.equalsIgnoreCase("REJECT")) {
+							metrics.setDanger(1);
+							metrics.setNormal(0);
+						} else {
+							metrics.setNormal(1);
+							metrics.setDanger(0);
+		
+						}
 					}
-					serviceConnection.setMetrics(metrics);
+						serviceConnection.setMetrics(metrics);
 					serviceConnection.setNotices(new ArrayList<AggregateServiceNotice>());
 					flowLogMap.put(key, serviceConnection);
 				}
@@ -164,6 +178,16 @@ public class AggregateDataUtil {
 			}
 		}
 		return serviceName;
+	}
+	
+	private static String getServiceStatus(String ipAddress, List<ServiceDetails> serviceInfos ) {
+		String serviceStatus = new String("DOWN");
+		for(ServiceDetails serviceDetail : serviceInfos) {
+			if (serviceDetail.getInstance().get(0).getIpAddr().equalsIgnoreCase(ipAddress)) {
+				return serviceDetail.getInstance().get(0).getStatus();
+			}
+		}
+		return serviceStatus;
 	}
 	
 	//Dummy Data Nodes
