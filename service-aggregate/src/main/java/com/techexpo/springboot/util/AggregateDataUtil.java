@@ -105,11 +105,12 @@ public class AggregateDataUtil {
 			System.out.println("destAppName:" + destAppName);
 //			
 			String key = sourceAppName + "-" + destAppName;
-			
 //			String key = sourceIp + "-" + destIp;
 			
-			if(sourceAppName.equalsIgnoreCase("INTERNET") && destAppName.equalsIgnoreCase("INTERNET")) {
-			} else {
+//			if(sourceAppName.equalsIgnoreCase("INTERNET") && destAppName.equalsIgnoreCase("INTERNET")) {
+//			} else {
+			if(dependencyMap.containsKey(key)) {
+				System.out.println("Key Found:" + key);
 				if (flowLogMap.keySet().contains(key)) {
 					ServiceConnection serviceConnection = flowLogMap.get(key);
 					if(status.equalsIgnoreCase("REJECT")) {
@@ -139,6 +140,8 @@ public class AggregateDataUtil {
 					serviceConnection.setNotices(new ArrayList<AggregateServiceNotice>());
 					flowLogMap.put(key, serviceConnection);
 				}
+			} else {
+				System.out.println("KEY Not found:" + key);
 			}
 			
 		}
