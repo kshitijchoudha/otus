@@ -25,15 +25,19 @@ public class Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
     public static String ACCESS_KEY;
     public static String SECRET_ACCESS_KEY;
+    public static String SUCCESS_RANDOM_COUNT;
+    public static String FAILED_RANDOM_COUNT;
     
 	/**
 	 * @param args
 	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) throws InterruptedException {
-		if(null != args && args.length >= 2)  {
+		if(null != args && args.length >= 4)  {
 			ACCESS_KEY = args[0];
 			SECRET_ACCESS_KEY = args[1];
+			SUCCESS_RANDOM_COUNT = args[2];
+			FAILED_RANDOM_COUNT = args[3];
 		} else {
 			System.err.print("Pass Access Key and Secret Access Key");
 			System.exit(0);

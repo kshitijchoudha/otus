@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.techexpo.springboot.application.Application;
 import com.techexpo.springboot.model.Instance;
 import com.techexpo.springboot.model.ServiceDetails;
 import com.techexpo.springboot.model.VPCFlowLogResponse;
@@ -150,7 +151,7 @@ public class AggregateDataUtil {
 		
 						}
 					}
-						serviceConnection.setMetrics(metrics);
+					serviceConnection.setMetrics(metrics);
 					serviceConnection.setNotices(new ArrayList<AggregateServiceNotice>());
 					flowLogMap.put(key, serviceConnection);
 				}
@@ -164,6 +165,15 @@ public class AggregateDataUtil {
 		while(keySetIterator.hasNext()) { 
 			String key = keySetIterator.next(); 
 			System.out.println("key: " + key + " value: " + flowLogMap.get(key)); 
+			//RANDOM_COUNT - Bumping Normal and Danger count
+			int failedCnt = flowLogMap.get(key).getMetrics().getDanger();
+			failedCnt = failedCnt * Integer.parseInt(Application.FAILED_RANDOM_COUNT);
+			flowLogMap.get(key).getMetrics().setDanger(failedCnt);
+			
+			int successCnt = flowLogMap.get(key).getMetrics().getNormal();
+			successCnt = successCnt * Integer.parseInt(Application.SUCCESS_RANDOM_COUNT);
+			flowLogMap.get(key).getMetrics().setNormal(successCnt);
+			
 			
 			serviceConnections.add(flowLogMap.get(key));
 		}
