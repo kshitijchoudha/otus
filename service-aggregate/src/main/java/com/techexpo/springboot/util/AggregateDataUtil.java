@@ -138,11 +138,7 @@ public class AggregateDataUtil {
 				System.out.println("Key Found:" + key);
 				if (flowLogMap.keySet().contains(key)) {
 					ServiceConnection serviceConnection = flowLogMap.get(key);
-					if (((!sourceAppName.equalsIgnoreCase("INTERNET") &&
-							!sourceAppName.equalsIgnoreCase("EUREKA")) && 
-							sourceStatus.equalsIgnoreCase("DOWN")) ||((!destAppName.equalsIgnoreCase("INTERNET") &&
-									!destAppName.equalsIgnoreCase("EUREKA")) && 
-									destStatus.equalsIgnoreCase("DOWN"))) {
+					if (sourceStatus.equalsIgnoreCase("DOWN") || destStatus.equalsIgnoreCase("DOWN")) {
 						serviceConnection.getMetrics().setDanger(0);
 						serviceConnection.getMetrics().setNormal(0);
 					} else {
@@ -224,12 +220,16 @@ public class AggregateDataUtil {
 	}
 	
 	private static String getServiceStatus(String ipAddress, List<ServiceDetails> serviceInfos ) {
-		String serviceStatus = new String("DOWN");
-		for(ServiceDetails serviceDetail : serviceInfos) {
+		String serviceStatus = new String("UP");
+		for(ServiceDetails serviceDetail : serviceInfos) {			
 			if (serviceDetail.getInstance().get(0).getIpAddr().equalsIgnoreCase(ipAddress)) {
+				if(serviceDetail.getInstance().get(0).getApp().equalsIgnoreCase("EUREKA")) {
+					return "UP";
+				}
 				return serviceDetail.getInstance().get(0).getStatus();
 			}
 		}
+		
 		return serviceStatus;
 	}
 	
