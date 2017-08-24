@@ -138,7 +138,11 @@ public class AggregateDataUtil {
 				System.out.println("Key Found:" + key);
 				if (flowLogMap.keySet().contains(key)) {
 					ServiceConnection serviceConnection = flowLogMap.get(key);
-					if (sourceStatus.equalsIgnoreCase("DOWN") || destStatus.equalsIgnoreCase("DOWN")) {
+					if (((!sourceAppName.equalsIgnoreCase("INTERNET") &&
+							!sourceAppName.equalsIgnoreCase("EUREKA")) && 
+							sourceStatus.equalsIgnoreCase("DOWN")) ||((!destAppName.equalsIgnoreCase("INTERNET") &&
+									!destAppName.equalsIgnoreCase("EUREKA")) && 
+									destStatus.equalsIgnoreCase("DOWN"))) {
 						serviceConnection.getMetrics().setDanger(0);
 						serviceConnection.getMetrics().setNormal(0);
 					} else {
