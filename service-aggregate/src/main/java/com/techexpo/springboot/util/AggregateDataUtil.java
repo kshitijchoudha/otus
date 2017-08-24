@@ -1,6 +1,7 @@
 package com.techexpo.springboot.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -19,6 +20,24 @@ import com.techexpo.springboot.response.ServiceConnection;
 import com.techexpo.springboot.response.ServiceNode;
 
 public class AggregateDataUtil {
+	
+	private static Map<String, String> dependencyMap = null;
+	
+	static {
+        Map<String, String> aMap = new HashMap<String, String>();
+        aMap.put("INTERNET-OTUS-UI", "");
+        aMap.put("OTUS-UI-SERVICE-A", "");
+        aMap.put("OTUS-UI-SERVICE-B", "");
+        aMap.put("OTUS-UI-SERVICE-C", "");
+        aMap.put("OTUS-UI-SERVICE-AGGREGATE", "");
+        aMap.put("SERVICE-A-SERVICE-D", "");
+        aMap.put("SERVICE-D-SERVICE-H", "");
+        aMap.put("SERVICE-B-SERVICE-E", "");
+        aMap.put("SERVICE-B-SERVICE-F", "");
+        aMap.put("SERVICE-F-SERVICE-G", "");
+        aMap.put("SERVICE-F-SERVICE-I", "");
+        dependencyMap = Collections.unmodifiableMap(aMap);
+    }
 
 	public static AggregateResponse createDummyDate(List<ServiceDetails>  serviceInfos) {
 		AggregateResponse response = new AggregateResponse();
