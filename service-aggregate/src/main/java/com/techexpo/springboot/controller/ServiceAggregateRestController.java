@@ -162,7 +162,7 @@ public class ServiceAggregateRestController {
 		
 		eurekainstances.add(eurekainstance);
 		eurekaDetails.setInstance(eurekainstances);
-		serviceDetails.add(eurekaDetails);
+		serviceDetails.add(0, eurekaDetails);
 		
 //		eurekeInfo.setApplication(eurekaDetails);		
 //		serviceDetails.add(eurekeInfo);
@@ -180,7 +180,8 @@ public class ServiceAggregateRestController {
 		interInstance.setInstanceId("-1");
 		internetInstances.add(interInstance);
 		internetDetails.setInstance(internetInstances);
-		serviceDetails.add(internetDetails);
+		
+		serviceDetails.add(0, internetDetails);
 //		internetInfo.setApplication(internetDetails);		
 //		serviceInfos.add(internetInfo);		
 //		
