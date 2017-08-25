@@ -40,6 +40,18 @@ public class AggregateDataUtil {
         aMap.put("SERVICE-F_SERVICE-I", "");
         dependencyMap = Collections.unmodifiableMap(aMap);
 
+        aMap = new HashMap<String, String>();
+        aMap.put("INTERNET_OTUS-UI", "");
+        aMap.put("OTUS-UI_SERVICE-A", "");
+        aMap.put("OTUS-UI_SERVICE-B", "");
+        aMap.put("OTUS-UI_SERVICE-C", "");
+        aMap.put("OTUS-UI_SERVICE-AGGREGATE", "");
+        aMap.put("SERVICE-A_SERVICE-D", "");
+        aMap.put("SERVICE-D_SERVICE-H", "");
+        aMap.put("SERVICE-B_SERVICE-E", "");
+        aMap.put("SERVICE-B_SERVICE-F", "");
+        aMap.put("SERVICE-F_SERVICE-G", "");
+        aMap.put("SERVICE-F_SERVICE-I", "");
         aMap.put("OTUS-UI_EUREKA", "");
         aMap.put("SERVICE-A_EUREKA", "");
         aMap.put("SERVICE-B_EUREKA", "");
