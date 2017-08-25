@@ -25,8 +25,8 @@ public class Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
     public static String ACCESS_KEY;
     public static String SECRET_ACCESS_KEY;
-    public static String SUCCESS_RANDOM_COUNT;
-    public static String FAILED_RANDOM_COUNT;
+//    public static String SUCCESS_RANDOM_COUNT;
+//    public static String FAILED_RANDOM_COUNT;
     public static String EUREKA_FLAG;
 
     
@@ -38,9 +38,9 @@ public class Application {
 		if(null != args && args.length >= 5)  {
 			ACCESS_KEY = args[0];
 			SECRET_ACCESS_KEY = args[1];
-			SUCCESS_RANDOM_COUNT = args[2];
-			FAILED_RANDOM_COUNT = args[3];
-			EUREKA_FLAG = args[4];
+//			SUCCESS_RANDOM_COUNT = args[2];
+//			FAILED_RANDOM_COUNT = args[3];
+			EUREKA_FLAG = args[2];
 		} else {
 			System.err.print("Pass Access Key and Secret Access Key");
 			System.exit(0);

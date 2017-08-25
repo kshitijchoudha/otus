@@ -10,8 +10,8 @@ public class VPCFlowLogResponse {
 	private String sourcePort;
 	private String destinationPort;
 	private String protocol;
-	private String packets;
-	private String bytes;
+	private int packets;
+	private int bytes;
 	private String startTime;
 	private String endTime;
 	private String action;
@@ -64,16 +64,16 @@ public class VPCFlowLogResponse {
 	public void setProtocol(String protocol) {
 		this.protocol = protocol;
 	}
-	public String getPackets() {
+	public int getPackets() {
 		return packets;
 	}
-	public void setPackets(String packets) {
+	public void setPackets(int packets) {
 		this.packets = packets;
 	}
-	public String getBytes() {
+	public int getBytes() {
 		return bytes;
 	}
-	public void setBytes(String bytes) {
+	public void setBytes(int bytes) {
 		this.bytes = bytes;
 	}
 	public String getStartTime() {

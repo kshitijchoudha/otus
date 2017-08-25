@@ -27,30 +27,30 @@ public class AggregateDataUtil {
 	
 	static {
         Map<String, String> aMap = new HashMap<String, String>();
-        aMap.put("INTERNET-OTUS-UI", "");
-        aMap.put("OTUS-UI-SERVICE-A", "");
-        aMap.put("OTUS-UI-SERVICE-B", "");
-        aMap.put("OTUS-UI-SERVICE-C", "");
-        aMap.put("OTUS-UI-SERVICE-AGGREGATE", "");
-        aMap.put("SERVICE-A-SERVICE-D", "");
-        aMap.put("SERVICE-D-SERVICE-H", "");
-        aMap.put("SERVICE-B-SERVICE-E", "");
-        aMap.put("SERVICE-B-SERVICE-F", "");
-        aMap.put("SERVICE-F-SERVICE-G", "");
-        aMap.put("SERVICE-F-SERVICE-I", "");
+        aMap.put("INTERNET_OTUS-UI", "");
+        aMap.put("OTUS-UI_SERVICE-A", "");
+        aMap.put("OTUS-UI_SERVICE-B", "");
+        aMap.put("OTUS-UI_SERVICE-C", "");
+        aMap.put("OTUS-UI_SERVICE-AGGREGATE", "");
+        aMap.put("SERVICE-A_SERVICE-D", "");
+        aMap.put("SERVICE-D_SERVICE-H", "");
+        aMap.put("SERVICE-B_SERVICE-E", "");
+        aMap.put("SERVICE-B_SERVICE-F", "");
+        aMap.put("SERVICE-F_SERVICE-G", "");
+        aMap.put("SERVICE-F_SERVICE-I", "");
         dependencyMap = Collections.unmodifiableMap(aMap);
 
-        aMap.put("INTERNET-EUREKA", "");
-        aMap.put("SERVICE-A-EUREKA", "");
-        aMap.put("SERVICE-B-EUREKA", "");
-        aMap.put("SERVICE-C-EUREKA", "");
-        aMap.put("SERVICE-AGGREGATE-EUREKA", "");
-        aMap.put("SERVICE-D-EUREKA", "");
-        aMap.put("SERVICE-E-EUREKA", "");
-        aMap.put("SERVICE-F-EUREKA", "");
-        aMap.put("SERVICE-G-EUREKA", "");
-        aMap.put("SERVICE-H-EUREKA", "");
-        aMap.put("SERVICE-I-EUREKA", "");
+        aMap.put("INTERNET_EUREKA", "");
+        aMap.put("SERVICE-A_EUREKA", "");
+        aMap.put("SERVICE-B_EUREKA", "");
+        aMap.put("SERVICE-C_EUREKA", "");
+        aMap.put("SERVICE-AGGREGATE_EUREKA", "");
+        aMap.put("SERVICE-D_EUREKA", "");
+        aMap.put("SERVICE-E_EUREKA", "");
+        aMap.put("SERVICE-F_EUREKA", "");
+        aMap.put("SERVICE-G_EUREKA", "");
+        aMap.put("SERVICE-H_EUREKA", "");
+        aMap.put("SERVICE-I_EUREKA", "");
         dependencyMapWithEureka = Collections.unmodifiableMap(aMap);
     }
 
@@ -103,9 +103,45 @@ public class AggregateDataUtil {
 		return node;
 	}
 	
-	private static List<ServiceConnection> getConnections(List<ServiceDetails> serviceInfos, List<VPCFlowLogResponse> vpcLogResponse) {
+	// create predefined connections
+	private static List<ServiceConnection> getPredefinedConnections() {
 		List<ServiceConnection> serviceConnections = new ArrayList<ServiceConnection>();
-		Map<String, ServiceConnection> flowLogMap = new HashMap<String, ServiceConnection>();
+		Map<String, String> map =  getMap();
+		
+		for (String key : map.keySet()) {
+			String[] srcdst = key.split("_");
+			String src = srcdst[0];
+			String dst = srcdst[1];
+			
+			ServiceConnection serviceConnection = new ServiceConnection();
+			serviceConnection.setClassName("normal");
+			serviceConnection.setSource(src);
+			serviceConnection.setTarget(dst);
+			AggregateMetrics metrics = new AggregateMetrics();
+			metrics.setDanger(0);
+			metrics.setNormal(0);
+			serviceConnection.setMetrics(metrics);
+			serviceConnection.setNotices(new ArrayList<AggregateServiceNotice>());
+			serviceConnections.add(serviceConnection);
+		}
+		
+		return serviceConnections;
+	}
+	
+	private static Map<String, ServiceConnection> getFlowMap(List<ServiceConnection> connections) {
+		Map<String, ServiceConnection> flowmap = new HashMap<String, ServiceConnection>();
+		
+		for (ServiceConnection con : connections) {
+			String key = con.getSource() + "_" + con.getTarget();
+			flowmap.put(key, con);
+		}
+		
+		return flowmap;
+	}
+	
+	private static List<ServiceConnection> getConnections(List<ServiceDetails> serviceInfos, List<VPCFlowLogResponse> vpcLogResponse) {
+		List<ServiceConnection> serviceConnections = getPredefinedConnections();
+		Map<String, ServiceConnection> flowLogMap = getFlowMap(serviceConnections);
 		
 		if(null != vpcLogResponse && vpcLogResponse.size() > 0) {
 			System.out.println("====size===" + vpcLogResponse.size());
@@ -126,78 +162,66 @@ public class AggregateDataUtil {
 			
 			System.out.println("sourceAppName:" + sourceAppName + ":: Source Status:" + sourceStatus);
 			System.out.println("destAppName:" + destAppName + ":: destination Status:" + destStatus);
-//			
-			String key = sourceAppName + "-" + destAppName;
-//			String key = sourceIp + "-" + destIp;
-			
-			
-			
-//			if(sourceAppName.equalsIgnoreCase("INTERNET") && destAppName.equalsIgnoreCase("INTERNET")) {
-//			} else {
-			if(map.containsKey(key)  ) {
+
+			String key = sourceAppName + "_" + destAppName;
+
+			if (map.containsKey(key)) {
 				System.out.println("Key Found:" + key);
-				if (flowLogMap.keySet().contains(key)) {
-					ServiceConnection serviceConnection = flowLogMap.get(key);
-					if (sourceStatus.equalsIgnoreCase("DOWN") || destStatus.equalsIgnoreCase("DOWN")) {
-						serviceConnection.getMetrics().setDanger(0);
-						serviceConnection.getMetrics().setNormal(0);
-					} else {
-						if(status.equalsIgnoreCase("REJECT")) {
-							int rejectCount = serviceConnection.getMetrics().getDanger() + 1;
-							serviceConnection.getMetrics().setDanger(rejectCount);
-						} else {
-							int successCount  = serviceConnection.getMetrics().getNormal() + 1;
-							serviceConnection.getMetrics().setNormal(successCount);
-						}
+				ServiceConnection serviceConnection = flowLogMap.get(key);
+				boolean srcDown = sourceStatus.equalsIgnoreCase("DOWN");
+				boolean dstDown = destStatus.equalsIgnoreCase("DOWN");
+				if (srcDown || dstDown) {
+					int dangerCount = serviceConnection.getMetrics().getDanger();
+					serviceConnection.getMetrics().setDanger(dangerCount + vpcLog.getBytes());
+					serviceConnection.getMetrics().setNormal(0);
+					List<AggregateServiceNotice> notices = serviceConnection.getNotices();
+					if (notices.isEmpty()) {
+						AggregateServiceNotice aNotice = new AggregateServiceNotice();
+						aNotice.setTitle(srcDown ? sourceAppName + " is DOWN" : destAppName + " is DOWN");
+						aNotice.setSeverity(getSeverity(serviceConnection.getMetrics().getDanger()));
+						notices.add(aNotice);
 					}
-					flowLogMap.put(key, serviceConnection);
-					
 				} else {
-					ServiceConnection serviceConnection = new ServiceConnection();
-					serviceConnection.setClassName("normal");
-					serviceConnection.setSource(sourceAppName);
-					serviceConnection.setTarget(destAppName);
-					AggregateMetrics metrics = new AggregateMetrics();
-					if (sourceStatus.equalsIgnoreCase("DOWN") || destStatus.equalsIgnoreCase("DOWN")) {
-						metrics.setDanger(0);
-						metrics.setNormal(0);
+					if (status.equalsIgnoreCase("REJECT")) {
+						int rejectCount = serviceConnection.getMetrics().getDanger() + vpcLog.getBytes();
+						serviceConnection.getMetrics().setDanger(rejectCount);
 					} else {
-						if(status.equalsIgnoreCase("REJECT")) {
-							metrics.setDanger(1);
-							metrics.setNormal(0);
-						} else {
-							metrics.setNormal(1);
-							metrics.setDanger(0);
-		
-						}
+						int successCount = serviceConnection.getMetrics().getNormal() + vpcLog.getBytes();
+						serviceConnection.getMetrics().setNormal(successCount);
 					}
-					serviceConnection.setMetrics(metrics);
-					serviceConnection.setNotices(new ArrayList<AggregateServiceNotice>());
-					flowLogMap.put(key, serviceConnection);
 				}
 			} else {
 				System.out.println("KEY Not found:" + key);
 			}
-			
+
 		}
 		
-		Iterator<String> keySetIterator = flowLogMap.keySet().iterator(); 
-		while(keySetIterator.hasNext()) { 
-			String key = keySetIterator.next(); 
-			System.out.println("key: " + key + " value: " + flowLogMap.get(key)); 
-			//RANDOM_COUNT - Bumping Normal and Danger count
-			int failedCnt = flowLogMap.get(key).getMetrics().getDanger();
-			failedCnt = failedCnt * Integer.parseInt(Application.FAILED_RANDOM_COUNT);
-			flowLogMap.get(key).getMetrics().setDanger(failedCnt);
-			
-			int successCnt = flowLogMap.get(key).getMetrics().getNormal();
-			successCnt = successCnt * Integer.parseInt(Application.SUCCESS_RANDOM_COUNT);
-			flowLogMap.get(key).getMetrics().setNormal(successCnt);
-			
-			
-			serviceConnections.add(flowLogMap.get(key));
-		}
+		// not using factor for now.
+//		Iterator<String> keySetIterator = flowLogMap.keySet().iterator(); 
+//		while(keySetIterator.hasNext()) { 
+//			String key = keySetIterator.next(); 
+//			System.out.println("key: " + key + " value: " + flowLogMap.get(key)); 
+//			//RANDOM_COUNT - Bumping Normal and Danger count
+//			int failedCnt = flowLogMap.get(key).getMetrics().getDanger();
+//			failedCnt = failedCnt * Integer.parseInt(Application.FAILED_RANDOM_COUNT);
+//			flowLogMap.get(key).getMetrics().setDanger(failedCnt);
+//			
+//			int successCnt = flowLogMap.get(key).getMetrics().getNormal();
+//			successCnt = successCnt * Integer.parseInt(Application.SUCCESS_RANDOM_COUNT);
+//			flowLogMap.get(key).getMetrics().setNormal(successCnt);
+//			
+//			
+//			serviceConnections.add(flowLogMap.get(key));
+//		}
 		return serviceConnections;
+	}
+	
+	private static int getSeverity(int danger) {
+		if (danger < 100) {
+			return 1;
+		} else {
+			return 2;
+		}
 	}
 	
 	private static Map<String, String> getMap() {

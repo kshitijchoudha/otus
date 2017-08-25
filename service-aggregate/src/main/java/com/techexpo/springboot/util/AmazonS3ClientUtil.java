@@ -132,8 +132,17 @@ public class AmazonS3ClientUtil {
 		resp.setSourcePort(output[5]);
 		resp.setDestinationPort(output[6]);
 		resp.setProtocol(output[7]);
-		resp.setPackets(output[8]);
-		resp.setBytes(output[9]);
+		
+		int packets = 0;
+		int bytes = 0;
+		
+		try {
+			packets = Integer.parseInt(output[8]);
+			bytes = Integer.parseInt(output[9]);
+		} catch (Exception e) {};
+		
+		resp.setPackets(packets);
+		resp.setBytes(bytes);
 		resp.setStartTime(output[10]);
 		resp.setEndTime(output[11]);
 		resp.setAction(output[12]);
