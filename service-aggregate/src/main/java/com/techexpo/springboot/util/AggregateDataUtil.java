@@ -196,6 +196,23 @@ public class AggregateDataUtil {
 
 		}
 		
+		// aggregate the total of all traffic from otus-ui to a/b/c/aggregate
+		int totalNormalMetric = flowLogMap.get("OTUS-UI_SERVICE-A").getMetrics().getNormal() +
+				flowLogMap.get("OTUS-UI_SERVICE-B").getMetrics().getNormal() + 
+				flowLogMap.get("OTUS-UI_SERVICE-C").getMetrics().getNormal() + 
+				flowLogMap.get("OTUS-UI_SERVICE-AGGREGATE").getMetrics().getNormal();
+		if (flowLogMap.get("INTERNET_OTUS-UI").getMetrics().getNormal() < totalNormalMetric) {
+			flowLogMap.get("INTERNET_OTUS-UI").getMetrics().setNormal(totalNormalMetric);
+		}
+		
+		// fix the metric for eureka to be constant
+		for (String key : flowLogMap.keySet()) {
+			if (key.endsWith("_EUREKA")) {
+				ServiceConnection conn = flowLogMap.get(key);
+				conn.getMetrics().setNormal(3);
+			}
+		}
+		
 		// not using factor for now.
 //		Iterator<String> keySetIterator = flowLogMap.keySet().iterator(); 
 //		while(keySetIterator.hasNext()) { 
@@ -291,6 +308,7 @@ public class AggregateDataUtil {
 			aNotice.setTitle( node.getName() + " is DOWN");
 			aNotice.setSeverity(3);
 			node.getNotices().add(aNotice);
+			System.out.println(aNotice.getTitle());
 		}
 		
 		node.setRenderer("focusedChild");		
