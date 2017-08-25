@@ -24,6 +24,8 @@ public class ServiceNode {
 	
 	private List<ServiceConnection> connections;
 	
+	private List<AggregateServiceNotice> notices;
+	
 	public String getRenderer() {
 		return renderer;
 	}
@@ -82,6 +84,13 @@ public class ServiceNode {
 	public void setConnections(List<ServiceConnection> connections) {
 		this.connections = connections;
 	}
+	public List<AggregateServiceNotice> getNotices() {
+		return notices;
+	}
+	public void setNotices(List<AggregateServiceNotice> notices) {
+		this.notices = notices;
+	}
+	
 	@Override
 	public String toString() {
 		return "ServiceNode [renderer=" + renderer + ", name=" + name

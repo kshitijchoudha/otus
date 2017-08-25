@@ -284,6 +284,15 @@ public class AggregateDataUtil {
 		
 		node.setClusters(new ArrayList<AggregateCluster>());
 		
+		node.setNotices(new ArrayList<AggregateServiceNotice>());
+		
+		if (instance.getStatus().equalsIgnoreCase("DOWN")) {
+			AggregateServiceNotice aNotice = new AggregateServiceNotice();
+			aNotice.setTitle( node.getName() + " is DOWN");
+			aNotice.setSeverity(3);
+			node.getNotices().add(aNotice);
+		}
+		
 		node.setRenderer("focusedChild");		
 		node.setClassName("normal");
 		node.setMaxVolume(100);
