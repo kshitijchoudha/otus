@@ -35,7 +35,7 @@ public class Application {
 	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) throws InterruptedException {
-		if(null != args && args.length >= 5)  {
+		if(null != args && args.length >= 3)  {
 			ACCESS_KEY = args[0];
 			SECRET_ACCESS_KEY = args[1];
 //			SUCCESS_RANDOM_COUNT = args[2];
