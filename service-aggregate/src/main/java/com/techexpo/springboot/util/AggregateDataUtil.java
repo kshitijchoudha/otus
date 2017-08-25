@@ -40,7 +40,7 @@ public class AggregateDataUtil {
         aMap.put("SERVICE-F_SERVICE-I", "");
         dependencyMap = Collections.unmodifiableMap(aMap);
 
-        aMap.put("INTERNET_EUREKA", "");
+        aMap.put("OTUS-UI_EUREKA", "");
         aMap.put("SERVICE-A_EUREKA", "");
         aMap.put("SERVICE-B_EUREKA", "");
         aMap.put("SERVICE-C_EUREKA", "");
