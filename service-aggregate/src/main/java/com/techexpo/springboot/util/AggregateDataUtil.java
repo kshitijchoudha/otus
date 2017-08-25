@@ -172,7 +172,7 @@ public class AggregateDataUtil {
 				boolean dstDown = destStatus.equalsIgnoreCase("DOWN");
 				if (srcDown || dstDown) {
 					int dangerCount = serviceConnection.getMetrics().getDanger();
-					serviceConnection.getMetrics().setDanger(dangerCount + vpcLog.getBytes());
+					serviceConnection.getMetrics().setDanger(dangerCount + vpcLog.getPackets());
 					serviceConnection.getMetrics().setNormal(0);
 					List<AggregateServiceNotice> notices = serviceConnection.getNotices();
 					if (notices.isEmpty()) {
@@ -183,10 +183,10 @@ public class AggregateDataUtil {
 					}
 				} else {
 					if (status.equalsIgnoreCase("REJECT")) {
-						int rejectCount = serviceConnection.getMetrics().getDanger() + vpcLog.getBytes();
+						int rejectCount = serviceConnection.getMetrics().getDanger() + vpcLog.getPackets();
 						serviceConnection.getMetrics().setDanger(rejectCount);
 					} else {
-						int successCount = serviceConnection.getMetrics().getNormal() + vpcLog.getBytes();
+						int successCount = serviceConnection.getMetrics().getNormal() + vpcLog.getPackets();
 						serviceConnection.getMetrics().setNormal(successCount);
 					}
 				}
