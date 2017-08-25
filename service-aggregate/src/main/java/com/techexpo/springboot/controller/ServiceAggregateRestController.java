@@ -155,6 +155,7 @@ public class ServiceAggregateRestController {
 		Instance eurekainstance = new Instance();
 		eurekainstance.setApp("EUREKA");
 		eurekainstance.setIpAddr("34.193.236.46");
+		eurekainstance.setStatus("UP");
 		Port port = new Port();
 		port.setDollar("8761");
 		eurekainstance.setPort(port);
@@ -174,6 +175,7 @@ public class ServiceAggregateRestController {
 		
 		interInstance.setApp("INTERNET");
 		interInstance.setIpAddr("");
+		interInstance.setStatus("UP");
 		Port internetport = new Port();
 		internetport.setDollar("1111");
 		interInstance.setPort(internetport);
