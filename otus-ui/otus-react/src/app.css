@@ -61,6 +61,7 @@ body > .container {
 }
 
 .navbar-logo {
+  display: inline-block !important;
   position: relative;
   left: -25px;
 }

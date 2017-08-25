@@ -9,6 +9,8 @@ import 'vizceral-react/dist/vizceral.css';
 import keypress from 'keypress.js';
 import queryString from 'query-string';
 import request from 'superagent';
+import Toggle from 'react-toggle';
+import 'react-toggle/style.css';
 
 import './trafficFlow.css';
 import Breadcrumbs from './breadcrumbs';
@@ -42,6 +44,7 @@ class TrafficFlow extends React.Component {
     super(props);
 
     this.state = {
+      isDemo: false,
       currentView: undefined,
       redirectedFrom: undefined,
       selectedChart: undefined,
@@ -172,7 +175,9 @@ class TrafficFlow extends React.Component {
 
   beginSampleData = () => {
     this.traffic = { nodes: [], connections: [] };
-    request.get('/service-aggregate/data/')
+    const url = this.state.isDemo ? '/sample_data_original.json' : '/service-aggregate/data/';
+
+    request.get(url)
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (res && res.status === 200) {
@@ -219,7 +224,7 @@ class TrafficFlow extends React.Component {
         this.state.currentView[1] !== nextState.currentView[1] ||
         this.state.highlightedObject !== nextState.highlightedObject) {
       const titleArray = (nextState.currentView || []).slice(0);
-      titleArray.unshift('Vizceral');
+      titleArray.unshift('Project Otus');
       document.title = titleArray.join(' / ');
 
       if (this.poppedState) {
@@ -340,6 +345,16 @@ class TrafficFlow extends React.Component {
     this.setState({ redirectedFrom: undefined });
   }
 
+  toggleDemoMode = () => {
+    this.setState(prevState => ({
+      isDemo: !prevState.isDemo
+    }));
+
+    setTimeout(() => {
+      this.beginSampleData();
+    }, 1000);
+  }
+
   render () {
     const globalView = this.state.currentView && this.state.currentView.length === 0;
     const nodeView = !globalView && this.state.currentView && this.state.currentView[1] !== undefined;
@@ -369,13 +384,17 @@ class TrafficFlow extends React.Component {
         <div className="subheader">
           <Breadcrumbs rootTitle="global" navigationStack={this.state.currentView || []} navigationCallback={this.navigationCallback} />
           <UpdateStatus status={this.state.regionUpdateStatus} baseOffset={this.state.timeOffset} warnThreshold={180000} />
-          {/* <div style={{ float: 'right', paddingTop: '4px' }}>
-            { (!globalView && matches) && <Locator changeCallback={this.locatorChanged} searchTerm={this.state.searchTerm} matches={matches} clearFilterCallback={this.filtersCleared} /> }
-            <OptionsPanel title="Filters"><FilterControls /></OptionsPanel>
-            <OptionsPanel title="Display"><DisplayOptions options={this.state.displayOptions} changedCallback={this.displayOptionsChanged} /></OptionsPanel>
-            <OptionsPanel title="Physics"><PhysicsOptions options={this.state.currentGraph_physicsOptions} changedCallback={this.physicsOptionsChanged}/></OptionsPanel>
-            <a role="button" className="reset-layout-link" onClick={this.resetLayoutButtonClicked}>Reset Layout</a>
-          </div>*/}
+          <div style={{ float: 'right', paddingTop: '4px' }}>
+            {/* <OptionsPanel title="Filters"><FilterControls /></OptionsPanel>*/}
+            {/* <OptionsPanel title="Display"><DisplayOptions options={this.state.displayOptions} changedCallback={this.displayOptionsChanged} /></OptionsPanel>*/}
+            {/* <OptionsPanel title="Physics"><PhysicsOptions options={this.state.currentGraph_physicsOptions} changedCallback={this.physicsOptionsChanged}/></OptionsPanel>*/}
+            {/* <a role="button" className="reset-layout-link" onClick={this.resetLayoutButtonClicked}>Reset Layout</a>*/}
+            <label>
+              <Toggle
+                defaultChecked={this.state.isDemo}
+                onChange={this.toggleDemoMode} />
+            </label>
+          </div>
         </div>
         <div className="service-traffic-map">
           <div style={{ position: 'absolute', top: '0px', right: nodeToShowDetails || connectionToShowDetails ? '380px' : '0px', bottom: '0px', left: '0px' }}>

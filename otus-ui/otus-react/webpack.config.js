@@ -60,7 +60,7 @@ module.exports = {
       __HIDE_DATA__: !!process.env.HIDE_DATA
     }),
     new HtmlWebpackPlugin({
-      title: 'Vizceral',
+      title: 'Project Otus',
       template: './src/index.html',
       favicon: './src/favicon.ico',
       inject: true
