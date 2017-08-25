@@ -360,7 +360,6 @@ class TrafficFlow extends React.Component {
     const nodeView = !globalView && this.state.currentView && this.state.currentView[1] !== undefined;
     let nodeToShowDetails = this.state.currentGraph && this.state.currentGraph.focusedNode;
     nodeToShowDetails = nodeToShowDetails || (this.state.highlightedObject && this.state.highlightedObject.type === 'node' ? this.state.highlightedObject : undefined);
-    const nodeStatus = nodeToShowDetails && nodeToShowDetails['service-details'].status;
     const connectionToShowDetails = this.state.highlightedObject && this.state.highlightedObject.type === 'connection' ? this.state.highlightedObject : undefined;
     const showLoadingCover = !this.state.currentGraph;
 
@@ -417,7 +416,6 @@ class TrafficFlow extends React.Component {
           {
             !!nodeToShowDetails &&
             <DetailsPanelNode node={nodeToShowDetails}
-                              nodeStatus={nodeStatus}
                               nodeSelected={nodeView}
                               region={this.state.currentView[0]}
                               width={panelWidth}

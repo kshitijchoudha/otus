@@ -77,7 +77,6 @@ DetailsPanelNode.propTypes = {
   node: React.PropTypes.object.isRequired,
   nodeClicked: React.PropTypes.func,
   nodeSelected: React.PropTypes.bool.isRequired,
-  nodeStatus: React.PropTypes.string.isRequired,
   region: React.PropTypes.string
 };
 
