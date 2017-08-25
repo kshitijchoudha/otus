@@ -318,7 +318,7 @@ public class AggregateDataUtil {
 		if (instance.getStatus().equalsIgnoreCase("DOWN")) {
 			AggregateServiceNotice aNotice = new AggregateServiceNotice();
 			aNotice.setTitle( node.getName() + " is DOWN");
-			aNotice.setSeverity(3);
+			aNotice.setSeverity(2);
 			node.getNotices().add(aNotice);
 			System.out.println(aNotice.getTitle());
 		}
