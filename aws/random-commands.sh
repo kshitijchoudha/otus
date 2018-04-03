@@ -38,7 +38,7 @@ aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.micr
 --user-data '#!/bin/bash 
 cd /tmp 
 touch user-data-working 
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/otus-ui/otus-ui-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/otus-ui/otus-ui-1.0-SNAPSHOT.jar 
 nohup java -jar otus-ui-1.0-SNAPSHOT.jar &'
 
 ##service-discovery
@@ -48,7 +48,7 @@ aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.micr
 --user-data '#!/bin/bash 
 cd /tmp 
 touch user-data-working 
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/service-discovery/service-discovery-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/service-discovery/service-discovery-1.0-SNAPSHOT.jar 
 nohup java -jar service-discovery-1.0-SNAPSHOT.jar &'
 
 ## service-aggregate
@@ -58,7 +58,7 @@ aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.micr
 --user-data '#!/bin/bash 
 cd /tmp 
 touch user-data-working 
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/service-aggregate/service-aggregate-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/service-aggregate/service-aggregate-1.0-SNAPSHOT.jar 
 nohup java -jar service-aggregate-1.0-SNAPSHOT.jar &'
 
 ## service-a
@@ -68,7 +68,7 @@ aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.nano
 --user-data '#!/bin/bash 
 cd /tmp 
 touch user-data-working 
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/service-a/service-a-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/service-a/service-a-1.0-SNAPSHOT.jar 
 nohup java -jar service-a-1.0-SNAPSHOT.jar &'
 
 ## service-b
@@ -78,7 +78,7 @@ aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.nano
 --user-data '#!/bin/bash 
 cd /tmp 
 touch user-data-working 
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/service-b/service-b-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/service-b/service-b-1.0-SNAPSHOT.jar 
 nohup java -jar service-b-1.0-SNAPSHOT.jar &'
 
 
@@ -89,7 +89,7 @@ aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.nano
 --user-data '#!/bin/bash 
 cd /tmp 
 touch user-data-working 
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/service-c/service-c-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/service-c/service-c-1.0-SNAPSHOT.jar 
 nohup java -jar service-c-1.0-SNAPSHOT.jar &'
 
 
@@ -100,7 +100,7 @@ aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.nano
 --user-data '#!/bin/bash 
 cd /tmp 
 touch user-data-working 
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/service-d/service-d-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/service-d/service-d-1.0-SNAPSHOT.jar 
 nohup java -jar service-d-1.0-SNAPSHOT.jar &'
 
 ## service-e
@@ -110,7 +110,7 @@ aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.nano
 --user-data '#!/bin/bash 
 cd /tmp 
 touch user-data-working 
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/service-e/service-e-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/service-e/service-e-1.0-SNAPSHOT.jar 
 nohup java -jar service-e-1.0-SNAPSHOT.jar &'
 
 ## service-f
@@ -120,7 +120,7 @@ aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.nano
 --user-data '#!/bin/bash 
 cd /tmp 
 touch user-data-working 
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/service-f/service-f-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/service-f/service-f-1.0-SNAPSHOT.jar 
 nohup java -jar service-f-1.0-SNAPSHOT.jar &'
 
 ## service-g
@@ -130,7 +130,7 @@ aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.nano
 --user-data '#!/bin/bash 
 cd /tmp 
 touch user-data-working 
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/service-g/service-g-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/service-g/service-g-1.0-SNAPSHOT.jar 
 nohup java -jar service-g-1.0-SNAPSHOT.jar &'
 
 ## service-h
@@ -140,7 +140,7 @@ aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.nano
 --user-data '#!/bin/bash 
 cd /tmp 
 touch user-data-working 
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/service-h/service-h-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/service-h/service-h-1.0-SNAPSHOT.jar 
 nohup java -jar service-h-1.0-SNAPSHOT.jar &'
 
 ## service-i
@@ -150,7 +150,7 @@ aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.nano
 --user-data '#!/bin/bash 
 cd /tmp 
 touch user-data-working 
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/service-i/service-i-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/service-i/service-i-1.0-SNAPSHOT.jar 
 nohup java -jar service-i-1.0-SNAPSHOT.jar &'
 
 

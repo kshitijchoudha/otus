@@ -12,7 +12,7 @@ do
 USERDATA=$"#!/bin/bash 
 cd /tmp  
 touch user-data-working   
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/$SERVICENAME/$SERVICENAME-1.0-SNAPSHOT.jar 
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/$SERVICENAME/$SERVICENAME-1.0-SNAPSHOT.jar 
 nohup java -jar $SERVICENAME-1.0-SNAPSHOT.jar & "
 
 AWSCOMMAND="aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.micro --key-name otus \
@@ -34,7 +34,7 @@ do
 USERDATA=$"#!/bin/bash 
 cd /tmp  
 touch user-data-working  
-wget https://s3.us-east-2.amazonaws.com/otus-201708/lib/$SERVICENAME/$SERVICENAME-1.0-SNAPSHOT.jar   
+wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/$SERVICENAME/$SERVICENAME-1.0-SNAPSHOT.jar   
 nohup java -jar $SERVICENAME-1.0-SNAPSHOT.jar & "
 
 AWSCOMMAND="aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.nano --key-name otus \

@@ -25,7 +25,7 @@ public class AmazonS3ClientUtil {
 	private static final String SUFFIX = "/";
 	private static String US_ACCESS_KEY = "";
 	private static String SECRET_US_ACCESS_KEY = "";
-	private static String bucketName = "otus-201708"; 
+	private static String bucketName = "otus-201804"; 
 	private static String key        = "otusVpCFlowLog";    
 	
 	
