@@ -24,7 +24,7 @@ deployment:
   prod:
     branch: master
     commands:
-      - aws s3 cp otus-ui/target/otus-ui-1.0-SNAPSHOT.jar s3://otus-201708/lib/otus-ui/
+      - aws s3 cp otus-ui/target/otus-ui-1.0-SNAPSHOT.jar s3://otus-201804/lib/otus-ui/
       - aws s3 cp service-a/target/service-a-1.0-SNAPSHOT.jar s3://otus-201804/lib/service-a/
       - aws s3 cp service-b/target/service-b-1.0-SNAPSHOT.jar s3://otus-201804/lib/service-b/
       - aws s3 cp service-c/target/service-c-1.0-SNAPSHOT.jar s3://otus-201804/lib/service-c/
