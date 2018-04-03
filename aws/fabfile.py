@@ -22,3 +22,11 @@ def deploy():
         sudo("mv "+jarName+" "+jarName+"."+datetime.datetime.now().isoformat())
         run("wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/"+serviceName+"/"+jarName)
     run("(nohup java -jar /tmp/"+jarName+"  > /tmp/nohup.out < /dev/null &)&", pty=False)
+<<<<<<< HEAD
+=======
+
+
+
+
+        
+>>>>>>> 3fc433b3d1f78e448a201d00eebb884d7aba8cbd
