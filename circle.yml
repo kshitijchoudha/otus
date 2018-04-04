@@ -3,8 +3,7 @@ machine:
     version: 6.9.0
 dependencies:
   pre:
-    - npm install webpack-cli -g
-    - npm install webpack -g
+    - npm install webpack@1.15.0 -g
     - ./buildui.sh
 general:
   artifacts:
