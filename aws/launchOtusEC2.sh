@@ -15,8 +15,8 @@ touch user-data-working
 wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/$SERVICENAME/$SERVICENAME-1.0-SNAPSHOT.jar 
 nohup java -jar $SERVICENAME-1.0-SNAPSHOT.jar & "
 
-AWSCOMMAND="aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.micro --key-name otus \
---security-group-ids sg-5a65fa2b --subnet-id subnet-77f5e912 \
+AWSCOMMAND="aws ec2 run-instances --image-id  ami-25615740 --count 1 --instance-type t2.micro --key-name otus \
+--security-group-ids sg-de978eb7 --subnet-id subnet-1e69b753 \
 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=$SERVICENAME},{Key=Project,Value=otus}]' \
 --user-data \"$USERDATA\""
 
@@ -37,8 +37,8 @@ touch user-data-working
 wget https://s3.us-east-2.amazonaws.com/otus-201804/lib/$SERVICENAME/$SERVICENAME-1.0-SNAPSHOT.jar   
 nohup java -jar $SERVICENAME-1.0-SNAPSHOT.jar & "
 
-AWSCOMMAND="aws ec2 run-instances --image-id  ami-4fffc834 --count 1 --instance-type t2.nano --key-name otus \
---security-group-ids sg-5a65fa2b --subnet-id subnet-77f5e912 \
+AWSCOMMAND="aws ec2 run-instances --image-id  ami-25615740 --count 1 --instance-type t2.nano --key-name otus \
+--security-group-ids sg-de978eb7 --subnet-id subnet-1e69b753 \
 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=$SERVICENAME},{Key=Project,Value=otus}]' \
 --user-data \"$USERDATA\""
 

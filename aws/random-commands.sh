@@ -4,7 +4,7 @@ aws --output table  ec2 describe-instances --filters "Name=instance-state-name,V
 aws ec2 describe-instances  --output text --filters "Name=tag:Name,Values=service-discovery" "Name=instance-state-name,Values=running" --query 'Reservations[].Instances[].InstanceId'
 
 
-aws ec2 associate-address --instance-id `aws ec2 describe-instances  --output text --filters "Name=tag:Name,Values=service-discovery" "Name=instance-state-name,Values=running" --query 'Reservations[].Instances[].InstanceId'` --public-ip 34.193.236.46
+aws ec2 associate-address --instance-id `aws ec2 describe-instances  --output text --filters "Name=tag:Name,Values=service-discovery" "Name=instance-state-name,Values=running" --query 'Reservations[].Instances[].InstanceId'` --public-ip 18.220.162.231
 
 
 

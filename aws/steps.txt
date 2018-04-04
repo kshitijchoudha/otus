@@ -1,0 +1,3 @@
+Follow steps at - https://aws.amazon.com/blogs/big-data/analyzing-vpc-flow-logs-with-amazon-kinesis-firehose-amazon-athena-and-amazon-quicksight/
+
+     > Create Kinesis Firehose s3 - https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html

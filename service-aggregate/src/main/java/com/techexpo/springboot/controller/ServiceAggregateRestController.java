@@ -44,7 +44,7 @@ public class ServiceAggregateRestController {
 	@Autowired
     private DiscoveryClient discoveryClient;
 	
-	private static final String URL = "http://34.193.236.46:8761/eureka/apps/";
+	private static final String URL = "http://18.220.162.231:8761/eureka/apps/";
 	
 	@RequestMapping("/service-instances/{applicationName}")
     public List<ServiceInstance> serviceInstancesByApplicationName(
@@ -102,7 +102,7 @@ public class ServiceAggregateRestController {
 		List<Instance> eurekainstances = new ArrayList<Instance>();
 		Instance eurekainstance = new Instance();
 		eurekainstance.setApp("EUREKA");
-		eurekainstance.setIpAddr("34.193.236.46");
+		eurekainstance.setIpAddr("18.220.162.231");
 		Port port = new Port();
 		port.setDollar("8761");
 		eurekainstance.setPort(port);
@@ -154,7 +154,7 @@ public class ServiceAggregateRestController {
 		List<Instance> eurekainstances = new ArrayList<Instance>();
 		Instance eurekainstance = new Instance();
 		eurekainstance.setApp("EUREKA");
-		eurekainstance.setIpAddr("34.193.236.46");
+		eurekainstance.setIpAddr("18.220.162.231");
 		eurekainstance.setStatus("UP");
 		Port port = new Port();
 		port.setDollar("8761");
