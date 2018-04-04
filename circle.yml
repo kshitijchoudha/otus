@@ -1,6 +1,4 @@
 machine:
-  java:
-    version: openjdk7
   node:
     version: 6.9.0
 dependencies:
