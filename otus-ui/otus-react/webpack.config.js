@@ -10,7 +10,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/service-aggregate/**': {
-        target: 'http://34.205.171.49:8080'
+        target: 'http://18.220.162.231:8082'
       }
     }
   },
