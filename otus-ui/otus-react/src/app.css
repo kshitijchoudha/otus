@@ -33,7 +33,7 @@ body {
 -------------------------------------------------- */
 body > .container {
     position: absolute;
-    top: 141px;
+    top: 123px;
     padding-left: 0;
     padding-right: 0;
     margin-left: 0;
@@ -62,8 +62,8 @@ body > .container {
 
 .navbar-logo {
   display: inline-block !important;
+  height: 100px;
   position: relative;
-  left: -25px;
 }
 
 .navbar-brand {
@@ -119,7 +119,7 @@ body > .container {
   --colorDanger: rgb(184, 36, 36);
   --colorNormalDimmed: rgb(101, 117, 128);
   --colorBackgroundDark: rgb(35, 35, 35);
-  --colorNormalDonut: rgb(21, 44, 59);
+  --colorNormalDonut: rgb(26, 55, 74);
   --colorLabelBorder: rgb(16, 17, 18);
   --colorLabelText: rgb(0, 0, 0);
   --colorDonutInternalColor: rgb(35, 35, 35);

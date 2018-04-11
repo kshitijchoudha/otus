@@ -44,6 +44,7 @@ class TrafficFlow extends React.Component {
     super(props);
 
     this.state = {
+      showVizceral: true,
       isDemo: false,
       currentView: undefined,
       redirectedFrom: undefined,
@@ -253,8 +254,16 @@ class TrafficFlow extends React.Component {
       regionUpdateStatus: regionUpdateStatus,
       timeOffset: newTraffic.clientUpdateTime - newTraffic.serverUpdateTime,
       lastUpdatedTime: lastUpdatedTime,
-      trafficData: newTraffic
+      trafficData: newTraffic,
+      showVizceral: false
     });
+
+    setTimeout(() => {
+      console.log('showing vizceral');
+      this.setState({
+        showVizceral: true
+      });
+    }, 1000);
   }
 
   isSelectedNode () {
@@ -397,21 +406,23 @@ class TrafficFlow extends React.Component {
         </div>
         <div className="service-traffic-map">
           <div style={{ position: 'absolute', top: '0px', right: nodeToShowDetails || connectionToShowDetails ? '380px' : '0px', bottom: '0px', left: '0px' }}>
-            <Vizceral traffic={this.state.trafficData}
-                      view={this.state.currentView}
-                      showLabels={this.state.displayOptions.showLabels}
-                      filters={this.state.filters}
-                      viewChanged={this.viewChanged}
-                      viewUpdated={this.viewUpdated}
-                      objectHighlighted={this.objectHighlighted}
-                      nodeContextSizeChanged={this.nodeContextSizeChanged}
-                      objectToHighlight={this.state.objectToHighlight}
-                      matchesFound={this.matchesFound}
-                      match={this.state.searchTerm}
-                      modes={this.state.modes}
-                      allowDraggingOfNodes={this.state.displayOptions.allowDraggingOfNodes}
-                      styles={this.vizceralStyles}
-            />
+            {this.state.showVizceral &&
+              <Vizceral traffic={this.state.trafficData}
+                        view={this.state.currentView}
+                        showLabels={this.state.displayOptions.showLabels}
+                        filters={this.state.filters}
+                        viewChanged={this.viewChanged}
+                        viewUpdated={this.viewUpdated}
+                        objectHighlighted={this.objectHighlighted}
+                        nodeContextSizeChanged={this.nodeContextSizeChanged}
+                        objectToHighlight={this.state.objectToHighlight}
+                        matchesFound={this.matchesFound}
+                        match={this.state.searchTerm}
+                        modes={this.state.modes}
+                        allowDraggingOfNodes={this.state.displayOptions.allowDraggingOfNodes}
+                        styles={this.vizceralStyles}
+              />
+            }
           </div>
           {
             !!nodeToShowDetails &&
