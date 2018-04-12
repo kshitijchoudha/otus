@@ -24,6 +24,7 @@ public class AggregateDataUtil {
 	
 	private static Map<String, String> dependencyMap = null;
 	private static Map<String, String> dependencyMapWithEureka = null;
+	pribate static int totalMetric = 2603;
 	
 	static {
         Map<String, String> aMap = new HashMap<String, String>();
@@ -80,10 +81,10 @@ public class AggregateDataUtil {
 		AggregateResponse response = new AggregateResponse();
 		response.setName("edge");
 		response.setRenderer("global");
-		//setting Connections
-		response.setConnections(getConnections());
 		//setting Nodes
 		response.setNodes(getNodes(serviceInfos, vpcLogResponse));
+		//setting Connections
+		response.setConnections(getConnections());
 		return response;
 	}
 	
@@ -213,6 +214,7 @@ public class AggregateDataUtil {
 				flowLogMap.get("OTUS-UI_SERVICE-B").getMetrics().getNormal() + 
 				flowLogMap.get("OTUS-UI_SERVICE-C").getMetrics().getNormal() + 
 				flowLogMap.get("OTUS-UI_SERVICE-AGGREGATE").getMetrics().getNormal();
+		totalMetric = totalNormalMetric;
 		if (flowLogMap.get("INTERNET_OTUS-UI").getMetrics().getNormal() < totalNormalMetric) {
 			flowLogMap.get("INTERNET_OTUS-UI").getMetrics().setNormal(totalNormalMetric);
 		}
@@ -347,7 +349,7 @@ public class AggregateDataUtil {
 		serviceConnection.setTarget("us-east-2");
 		
 		AggregateMetrics metrics = new AggregateMetrics();
-		metrics.setNormal(2603);
+		metrics.setNormal(totalMetric);
 		metrics.setDanger(92);
 		serviceConnection.setMetrics(metrics);
 		
