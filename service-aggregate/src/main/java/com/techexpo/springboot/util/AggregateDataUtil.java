@@ -347,7 +347,7 @@ public class AggregateDataUtil {
 		serviceConnection.setTarget("us-east-2");
 		
 		AggregateMetrics metrics = new AggregateMetrics();
-		metrics.setNormal(26037);
+		metrics.setNormal(2603);
 		metrics.setDanger(92);
 		serviceConnection.setMetrics(metrics);
 		
