@@ -24,7 +24,7 @@ public class AggregateDataUtil {
 	
 	private static Map<String, String> dependencyMap = null;
 	private static Map<String, String> dependencyMapWithEureka = null;
-	pribate static int totalMetric = 2603;
+	private static int totalMetric = 2603;
 	
 	static {
         Map<String, String> aMap = new HashMap<String, String>();
