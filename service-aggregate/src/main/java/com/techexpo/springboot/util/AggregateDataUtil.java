@@ -214,7 +214,7 @@ public class AggregateDataUtil {
 				flowLogMap.get("OTUS-UI_SERVICE-B").getMetrics().getNormal() + 
 				flowLogMap.get("OTUS-UI_SERVICE-C").getMetrics().getNormal() + 
 				flowLogMap.get("OTUS-UI_SERVICE-AGGREGATE").getMetrics().getNormal();
-		totalMetric = totalNormalMetric;
+		totalMetric += totalNormalMetric;
 		if (flowLogMap.get("INTERNET_OTUS-UI").getMetrics().getNormal() < totalNormalMetric) {
 			flowLogMap.get("INTERNET_OTUS-UI").getMetrics().setNormal(totalNormalMetric);
 		}
