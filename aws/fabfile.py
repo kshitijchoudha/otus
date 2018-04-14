@@ -7,8 +7,6 @@
 #Define roledefs and then call like this
 #fab run_command:"ps -ef|grep java" -R service-a
 
-#nohup java -jar service-aggregate-1.0-SNAPSHOT.jar AKIAJN25IADTAMDEDLIA A1Jb/vD5OCBIGH2bRi9e3O6/6XU8E634iauw3VXY true &
-
 #
 
 from fabric.api import local, settings, abort, run, cd, sudo, task, env
